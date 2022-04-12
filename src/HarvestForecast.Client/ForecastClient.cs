@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -8,7 +7,7 @@ namespace HarvestForecast.Client;
 
 public class ForecastClient : IForecastClient
 {
-    private const string BaseUrl = "https://api.forecastapp.com";
+	internal const string BaseUrl = "https://api.forecastapp.com";
     
     private readonly HttpClient httpClient;
     private readonly ForecastOptions options;
@@ -29,10 +28,7 @@ public class ForecastClient : IForecastClient
 
     private HttpRequestMessage GetRequestMessage( string subPath )
     {
-	    if ( !subPath.StartsWith( "/" ) )
-		    subPath += "/";
-
-	    string path = BaseUrl + subPath;
+	    string path = BaseUrl + "/" + subPath;
 	    var uri = new Uri( path, UriKind.Absolute );
 
 	    return new HttpRequestMessage( HttpMethod.Get, uri );
