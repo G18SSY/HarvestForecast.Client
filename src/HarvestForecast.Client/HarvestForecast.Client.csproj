@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+    
+    <PropertyGroup>
+        <PackageId>HarvestForecast.Client</PackageId>
+        <Authors>Brad Glass</Authors>
+        <PackageTags>Harvest;Forecast</PackageTags>
+        <Description>HarvestForecast.Client is an unofficial client library for the HarvestForecast API. Just add an access token and get started straight away!</Description>
+    </PropertyGroup>
+
+</Project>
