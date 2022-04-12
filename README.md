@@ -6,3 +6,14 @@ Inspired by the unofficial [Go package](https://github.com/joefitzgerald/forecas
 ## Installation
 
 This package will be available to install via NuGet once it is complete and tested.
+
+## TODO
+- [x] WhoAmI
+- [x] Account
+- [ ] Assignment
+- [ ] Client
+- [ ] Milestone
+- [ ] Person
+- [ ] Placeholder
+- [ ] Project
+- [ ] Subscription
