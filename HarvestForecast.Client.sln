@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HarvestForecast.Client", "s
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{78E34E6F-F8C9-4BFC-802B-8CFF3DF5466A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{18F02E33-D340-4087-ACE3-E159CFBBE9DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HarvestForecast.Client.Test", "test\HarvestForecast.Client.Test\HarvestForecast.Client.Test.csproj", "{C31FD00A-85E2-4A27-816A-23CF91C6B281}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,8 +23,13 @@ Global
 		{724F4479-D850-4E06-B5C9-4BC45245135E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{724F4479-D850-4E06-B5C9-4BC45245135E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{724F4479-D850-4E06-B5C9-4BC45245135E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C31FD00A-85E2-4A27-816A-23CF91C6B281}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C31FD00A-85E2-4A27-816A-23CF91C6B281}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C31FD00A-85E2-4A27-816A-23CF91C6B281}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C31FD00A-85E2-4A27-816A-23CF91C6B281}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{724F4479-D850-4E06-B5C9-4BC45245135E} = {78E34E6F-F8C9-4BFC-802B-8CFF3DF5466A}
+		{C31FD00A-85E2-4A27-816A-23CF91C6B281} = {18F02E33-D340-4087-ACE3-E159CFBBE9DD}
 	EndGlobalSection
 EndGlobal
