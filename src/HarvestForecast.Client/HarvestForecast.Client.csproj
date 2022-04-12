@@ -3,6 +3,7 @@
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <Nullable>enable</Nullable>
+        <LangVersion>10</LangVersion>
     </PropertyGroup>
     
     <PropertyGroup>
@@ -11,5 +12,9 @@
         <PackageTags>Harvest;Forecast</PackageTags>
         <Description>HarvestForecast.Client is an unofficial client library for the HarvestForecast API. Just add an access token and get started straight away!</Description>
     </PropertyGroup>
+    
+    <ItemGroup>
+      <PackageReference Include="System.Text.Json" Version="6.0.3" />
+    </ItemGroup>
 
 </Project>
