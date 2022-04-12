@@ -4,6 +4,7 @@ using System.Net.Http.Headers;
 using System.Reflection;
 using System.Text.Json;
 using System.Threading.Tasks;
+using HarvestForecast.Client.Entities;
 
 namespace HarvestForecast.Client;
 
@@ -23,6 +24,11 @@ public class ForecastClient : IForecastClient
     public ValueTask<CurrentUser> WhoAmIAsync()
     {
         return GetEntityAsync<CurrentUser>( "whoami" );
+    }
+
+    public ValueTask<Account> Account()
+    {
+        return GetEntityAsync<Account>( $"accounts/{options.AccountId}" );
     }
 
     protected virtual ValueTask AuthenticateRequest( HttpRequestMessage request )

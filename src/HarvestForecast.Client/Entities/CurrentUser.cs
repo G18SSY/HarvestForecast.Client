@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace HarvestForecast.Client;
+namespace HarvestForecast.Client.Entities;
 
 /// <summary>
 ///     Contains information about the current Forecast user.

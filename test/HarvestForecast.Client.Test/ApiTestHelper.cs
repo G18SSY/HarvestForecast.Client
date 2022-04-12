@@ -9,8 +9,9 @@ public static class ApiTestHelper
     public static IForecastClient GetMockedForecastClient()
     {
         var handler = new MockHttpMessageHandler();
-        
-        handler.AddTestResponse("whoami", "whoami.json");
+
+        handler.AddTestResponse( "whoami", "whoami.json" )
+               .AddTestResponse( "account*", "accounts.json" );
 
         var httpClient = handler.ToHttpClient();
 
