@@ -8,6 +8,9 @@ using HarvestForecast.Client.Entities;
 
 namespace HarvestForecast.Client;
 
+/// <summary>
+///     An implementation of <see cref="IForecastClient" /> for fetching data from Harvest Forecast.
+/// </summary>
 public class ForecastClient : IForecastClient
 {
     internal const string BaseUrl = "https://api.forecastapp.com";
@@ -15,22 +18,33 @@ public class ForecastClient : IForecastClient
     private readonly HttpClient httpClient;
     private readonly ForecastOptions options;
 
+    /// <summary>
+    ///     Creates a new client.
+    /// </summary>
+    /// <param name="httpClient">The <see cref="HttpClient" /> instance to use for sending requests.</param>
+    /// <param name="options">The auth options.</param>
     public ForecastClient( HttpClient httpClient, ForecastOptions options )
     {
         this.httpClient = httpClient;
         this.options = options;
     }
 
+    /// <inheritdoc />
     public ValueTask<CurrentUser> WhoAmIAsync()
     {
         return GetEntityAsync<CurrentUser>( "whoami" );
     }
 
+    /// <inheritdoc />
     public ValueTask<Account> Account()
     {
         return GetEntityAsync<Account>( $"accounts/{options.AccountId}" );
     }
 
+    /// <summary>
+    ///     Adds authentication headers to a request. This is called before the request is sent and can be extended to add
+    ///     additional headers in an overriding class.
+    /// </summary>
     protected virtual ValueTask AuthenticateRequest( HttpRequestMessage request )
     {
         request.Headers.Authorization = new AuthenticationHeaderValue( "Bearer", options.AccessToken );
@@ -39,7 +53,7 @@ public class ForecastClient : IForecastClient
         return new ValueTask();
     }
 
-    private HttpRequestMessage GetRequestMessage( string subPath )
+    private static HttpRequestMessage GetRequestMessage( string subPath )
     {
         string path = BaseUrl + "/" + subPath;
         var uri = new Uri( path, UriKind.Absolute );
