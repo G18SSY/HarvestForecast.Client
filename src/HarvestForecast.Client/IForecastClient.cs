@@ -29,4 +29,9 @@ public interface IForecastClient
     ///     Gets all of the clients.
     /// </summary>
     ValueTask<IReadOnlyCollection<Entities.Client>> Clients();
+    
+    /// <summary>
+    ///     Gets a client by ID.
+    /// </summary>
+    ValueTask<Entities.Client> Client(int id);
 }

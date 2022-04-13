@@ -11,7 +11,7 @@ This package will be available to install via NuGet once it is complete and test
 - [x] WhoAmI
 - [x] Account
 - [x] Assignment
-- [ ] Client
+- [x] Client
 - [ ] Milestone
 - [ ] Person
 - [ ] Placeholder

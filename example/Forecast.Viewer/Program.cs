@@ -1,11 +1,14 @@
 ﻿using HarvestForecast.Client;
 using HarvestForecast.Client.Entities;
+using Microsoft.Extensions.Caching.Memory;
 using Spectre.Console;
 
 namespace Forecast.Viewer;
 
 public static class Program
 {
+    private static readonly IMemoryCache Cache = new MemoryCache( new MemoryCacheOptions() );
+    
     public static async Task Main()
     {
         if ( !SayHello() )
@@ -45,12 +48,14 @@ public static class Program
             AnsiConsole.MarkupLine( $"[green]Looks like you've got {assignments.Count} assignment{( assignments.Count == 1 ? "" : "s" )}:[/]" );
 
             var table = new Table();
+            table.AddColumn( "Client" );
             table.AddColumn( "Project" );
             table.AddColumn( "Notes" );
 
             foreach ( var assignment in assignments )
             {
-                table.AddRow( assignment.ProjectId.ToString(), assignment.Notes ?? string.Empty );
+                // TODO GetClientAsync(assignment.)
+                table.AddRow( string.Empty, assignment.ProjectId.ToString(), assignment.Notes ?? string.Empty );
             }
             
             AnsiConsole.Write( table );
@@ -85,5 +90,12 @@ public static class Program
         AnsiConsole.WriteLine();
 
         return new ForecastOptions( id, token );
+    }
+
+    private static async ValueTask<Client> GetClientAsync( IForecastClient forecastClient, int id )
+    {
+        string key = $"client:{id}";
+
+        return await Cache.GetOrCreateAsync( key, async e => await forecastClient.Client( id ) );
     }
 }
