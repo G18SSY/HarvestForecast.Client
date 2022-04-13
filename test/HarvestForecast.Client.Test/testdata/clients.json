@@ -1,0 +1,20 @@
+﻿{
+  "clients": [
+    {
+      "id": 1234,
+      "name": "The Boss",
+      "harvest_id": 456,
+      "archived": false,
+      "updated_at": "2015-07-27T07:17:11.801Z",
+      "updated_by_id": 2324
+    },
+    {
+      "id": 4321,
+      "name": "Orange",
+      "harvest_id": null,
+      "archived": true,
+      "updated_at": "2019-01-06T18:29:30.005Z",
+      "updated_by_id": 79393
+    }
+  ]
+}

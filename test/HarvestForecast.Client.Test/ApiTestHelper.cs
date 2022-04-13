@@ -12,7 +12,8 @@ public static class ApiTestHelper
 
         handler.AddTestResponse( "whoami", "whoami.json" )
                .AddTestResponse( "account*", "accounts.json" )
-               .AddTestResponse( "assignments*", "assignments.json" );
+               .AddTestResponse( "assignments*", "assignments.json" )
+               .AddTestResponse( "clients", "clients.json" );
 
         var httpClient = handler.ToHttpClient();
 

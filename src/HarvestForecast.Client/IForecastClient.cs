@@ -24,4 +24,9 @@ public interface IForecastClient
     /// </summary>
     /// <param name="filter">The options to filter by.</param>
     ValueTask<IReadOnlyCollection<Assignment>> Assignments( AssignmentFilter filter );
+
+    /// <summary>
+    ///     Gets all of the clients.
+    /// </summary>
+    ValueTask<IReadOnlyCollection<Entities.Client>> Clients();
 }
