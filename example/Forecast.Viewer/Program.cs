@@ -54,8 +54,10 @@ public static class Program
 
             foreach ( var assignment in assignments )
             {
-                // TODO GetClientAsync(assignment.)
-                table.AddRow( string.Empty, assignment.ProjectId.ToString(), assignment.Notes ?? string.Empty );
+                var project = await GetProjectAsync( client, assignment.ProjectId );
+                var projectClient = project.ClientId.HasValue ? await GetClientAsync( client, project.ClientId.Value ) : null;
+
+                table.AddRow( projectClient?.Name ?? "-", project.Name, assignment.Notes ?? string.Empty );
             }
             
             AnsiConsole.Write( table );
@@ -96,6 +98,13 @@ public static class Program
     {
         string key = $"client:{id}";
 
-        return await Cache.GetOrCreateAsync( key, async e => await forecastClient.Client( id ) );
+        return await Cache.GetOrCreateAsync( key, async _ => await forecastClient.Client( id ) );
+    }
+    
+    private static async ValueTask<Project> GetProjectAsync( IForecastClient forecastClient, int id )
+    {
+        string key = $"project:{id}";
+
+        return await Cache.GetOrCreateAsync( key, async _ => await forecastClient.Project(id) );
     }
 }

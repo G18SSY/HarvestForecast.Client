@@ -53,19 +53,25 @@ public class ForecastClient : IForecastClient
     /// <inheritdoc />
     public ValueTask<IReadOnlyCollection<Project>> Projects()
     {
-        return GetEntityAsync<IReadOnlyCollection<Project>>( $"projects", "projects" );
+        return GetEntityAsync<IReadOnlyCollection<Project>>( "projects", "projects" );
+    }
+
+    /// <inheritdoc />
+    public ValueTask<Project> Project( int id )
+    {
+        return GetEntityAsync<Project>( $"projects/{id}", "project" );
     }
 
     /// <inheritdoc />
     public ValueTask<IReadOnlyCollection<Entities.Client>> Clients()
     {
-        return GetEntityAsync<IReadOnlyCollection<Entities.Client>>( $"clients", "clients" );
+        return GetEntityAsync<IReadOnlyCollection<Entities.Client>>( "clients", "clients" );
     }
 
     /// <inheritdoc />
     public ValueTask<Entities.Client> Client( int id )
     {
-        return GetEntityAsync<Entities.Client>( $"clients/{id}", "clients" );
+        return GetEntityAsync<Entities.Client>( $"clients/{id}", "client" );
     }
 
     /// <summary>

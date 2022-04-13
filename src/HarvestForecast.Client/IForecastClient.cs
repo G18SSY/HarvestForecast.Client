@@ -29,6 +29,11 @@ public interface IForecastClient
     ///     Gets all of the projects.
     /// </summary>
     ValueTask<IReadOnlyCollection<Project>> Projects();
+
+    /// <summary>
+    ///     Gets a project by ID.
+    /// </summary>
+    ValueTask<Project> Project( int id );
     
     /// <summary>
     ///     Gets all of the clients.
