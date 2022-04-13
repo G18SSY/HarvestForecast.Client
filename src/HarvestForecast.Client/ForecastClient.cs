@@ -51,6 +51,12 @@ public class ForecastClient : IForecastClient
     }
 
     /// <inheritdoc />
+    public ValueTask<IReadOnlyCollection<Project>> Projects()
+    {
+        return GetEntityAsync<IReadOnlyCollection<Project>>( $"projects", "projects" );
+    }
+
+    /// <inheritdoc />
     public ValueTask<IReadOnlyCollection<Entities.Client>> Clients()
     {
         return GetEntityAsync<IReadOnlyCollection<Entities.Client>>( $"clients", "clients" );

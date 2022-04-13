@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 namespace HarvestForecast.Client.Entities;
 
 /// <summary>
-///     Information about a client who may have one or more projects. 
+///     Information about a client who may have one or more <see cref="Project"/>s. 
 /// </summary>
 public record Client( [ property : JsonPropertyName( "id" ) ] int Id,
                       [ property : JsonPropertyName( "name" ) ] string Name,

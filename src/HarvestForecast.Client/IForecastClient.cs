@@ -26,6 +26,11 @@ public interface IForecastClient
     ValueTask<IReadOnlyCollection<Assignment>> Assignments( AssignmentFilter filter );
 
     /// <summary>
+    ///     Gets all of the projects.
+    /// </summary>
+    ValueTask<IReadOnlyCollection<Project>> Projects();
+    
+    /// <summary>
     ///     Gets all of the clients.
     /// </summary>
     ValueTask<IReadOnlyCollection<Entities.Client>> Clients();
