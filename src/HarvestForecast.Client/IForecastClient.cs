@@ -49,4 +49,9 @@ public interface IForecastClient
     ///     Gets all of the milestones.
     /// </summary>
     ValueTask<IReadOnlyCollection<Milestone>> MilestonesAsync();
+    
+    /// <summary>
+    ///     Gets the milestones specified by the <paramref name="filter" />.
+    /// </summary>
+    ValueTask<IReadOnlyCollection<Milestone>> MilestonesAsync( MilestoneFilter filter );
 }

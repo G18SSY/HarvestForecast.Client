@@ -12,7 +12,7 @@ This package will be available to install via NuGet once it is complete and test
 - [x] Account
 - [x] Assignment
 - [x] Client
-- [ ] Milestone
+- [x] Milestone
 - [ ] Person
 - [ ] Placeholder
 - [x] Project

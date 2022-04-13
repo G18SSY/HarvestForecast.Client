@@ -44,10 +44,7 @@ public class ForecastClient : IForecastClient
     /// <inheritdoc />
     public ValueTask<IReadOnlyCollection<Assignment>> AssignmentsAsync( AssignmentFilter filter )
     {
-        string queryString = filter.GetFilterQuery();
-        var subPath = $"assignments?{queryString}";
-
-        return GetEntityAsync<IReadOnlyCollection<Assignment>>( subPath, "assignments" );
+        return GetEntityAsync<IReadOnlyCollection<Assignment>>( "assignments", "assignments", filter );
     }
 
     /// <inheritdoc />
@@ -76,8 +73,12 @@ public class ForecastClient : IForecastClient
 
     /// <inheritdoc />
     public ValueTask<IReadOnlyCollection<Milestone>> MilestonesAsync()
+        => MilestonesAsync( MilestoneFilter.None );
+
+    /// <inheritdoc />
+    public ValueTask<IReadOnlyCollection<Milestone>> MilestonesAsync( MilestoneFilter filter )
     {
-        return GetEntityAsync<IReadOnlyCollection<Milestone>>( "milestones", "milestones" );
+        return GetEntityAsync<IReadOnlyCollection<Milestone>>( "milestones", "milestones", filter );
     }
 
     /// <summary>
@@ -100,8 +101,16 @@ public class ForecastClient : IForecastClient
         return new HttpRequestMessage( HttpMethod.Get, uri );
     }
 
-    private async ValueTask<T> GetEntityAsync<T>( string subPath, string containerPropertyName )
+    private async ValueTask<T> GetEntityAsync<T>( string subPath, string containerPropertyName, FilterBase? filter = null )
     {
+        if ( filter is { } )
+        {
+            string queryString = filter.GetFilterQuery();
+
+            if ( !string.IsNullOrEmpty( queryString ) )
+                subPath += $"?{queryString}";
+        }
+        
         var request = GetRequestMessage( subPath );
         await AuthenticateRequest( request );
 
