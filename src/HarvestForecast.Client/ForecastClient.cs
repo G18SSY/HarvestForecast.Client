@@ -44,7 +44,7 @@ public class ForecastClient : IForecastClient
     /// <inheritdoc />
     public ValueTask<IReadOnlyCollection<Assignment>> Assignments( AssignmentFilter filter )
     {
-        string queryString = filter.ToQueryString();
+        string queryString = filter.GetFilterQuery();
         var subPath = $"assignments?{queryString}";
 
         return GetEntityAsync<IReadOnlyCollection<Assignment>>( subPath, "assignments" );
