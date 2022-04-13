@@ -10,7 +10,7 @@ This package will be available to install via NuGet once it is complete and test
 ## TODO
 - [x] WhoAmI
 - [x] Account
-- [ ] Assignment
+- [x] Assignment
 - [ ] Client
 - [ ] Milestone
 - [ ] Person

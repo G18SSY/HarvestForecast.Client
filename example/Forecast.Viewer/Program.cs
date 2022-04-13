@@ -1,4 +1,5 @@
 ﻿using HarvestForecast.Client;
+using HarvestForecast.Client.Entities;
 using Spectre.Console;
 
 namespace Forecast.Viewer;
@@ -22,9 +23,38 @@ public static class Program
 
         // Detect the user
         var user = await client.WhoAmIAsync();
-
         AnsiConsole.MarkupLine( "[green]We've checked your access and everything looks good![/]" );
         AnsiConsole.WriteLine( $"Your user ID is '{user.Id}'" );
+
+        // Check the account
+        var account = await client.Account();
+        AnsiConsole.WriteLine( $"Your account is called '{account.Name}'" );
+
+        if ( !string.IsNullOrEmpty( account.HarvestName ) )
+            AnsiConsole.WriteLine( $"Your account is connected to Harvest: '{account.HarvestName}'" );
+        
+        // Check today's assignments
+        AnsiConsole.WriteLine();
+        var assignments = await client.Assignments( AssignmentFilter.Today() with {PersonId = user.Id} );
+        if ( assignments.Count == 0 )
+        {
+            AnsiConsole.MarkupLine("[green]Hooray! Looks like you've got nothing assigned to you today.[/]");
+        }
+        else
+        {
+            AnsiConsole.MarkupLine( $"[green]Looks like you've got {assignments.Count} assignment{( assignments.Count == 1 ? "" : "s" )}:[/]" );
+
+            var table = new Table();
+            table.AddColumn( "Project" );
+            table.AddColumn( "Notes" );
+
+            foreach ( var assignment in assignments )
+            {
+                table.AddRow( assignment.ProjectId.ToString(), assignment.Notes ?? string.Empty );
+            }
+            
+            AnsiConsole.Write( table );
+        }
     }
 
     private static bool SayHello()
