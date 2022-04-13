@@ -15,33 +15,33 @@ public interface IForecastClient
     ValueTask<CurrentUser> WhoAmIAsync();
 
     /// <summary>
-    ///     Gets the <see cref="Account" /> object for the active account.
+    ///     Gets the <see cref="AccountAsync" /> object for the active account.
     /// </summary>
-    ValueTask<Account> Account();
+    ValueTask<Account> AccountAsync();
 
     /// <summary>
     ///     Gets the assignments specified by the <paramref name="filter" />.
     /// </summary>
     /// <param name="filter">The options to filter by.</param>
-    ValueTask<IReadOnlyCollection<Assignment>> Assignments( AssignmentFilter filter );
+    ValueTask<IReadOnlyCollection<Assignment>> AssignmentsAsync( AssignmentFilter filter );
 
     /// <summary>
     ///     Gets all of the projects.
     /// </summary>
-    ValueTask<IReadOnlyCollection<Project>> Projects();
+    ValueTask<IReadOnlyCollection<Project>> ProjectsAsync();
 
     /// <summary>
     ///     Gets a project by ID.
     /// </summary>
-    ValueTask<Project> Project( int id );
+    ValueTask<Project> ProjectAsync( int id );
     
     /// <summary>
     ///     Gets all of the clients.
     /// </summary>
-    ValueTask<IReadOnlyCollection<Entities.Client>> Clients();
+    ValueTask<IReadOnlyCollection<Entities.Client>> ClientsAsync();
     
     /// <summary>
     ///     Gets a client by ID.
     /// </summary>
-    ValueTask<Entities.Client> Client(int id);
+    ValueTask<Entities.Client> ClientAsync(int id);
 }

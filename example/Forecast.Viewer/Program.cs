@@ -30,7 +30,7 @@ public static class Program
         AnsiConsole.WriteLine( $"Your user ID is '{user.Id}'" );
 
         // Check the account
-        var account = await client.Account();
+        var account = await client.AccountAsync();
         AnsiConsole.WriteLine( $"Your account is called '{account.Name}'" );
 
         if ( !string.IsNullOrEmpty( account.HarvestName ) )
@@ -38,7 +38,7 @@ public static class Program
         
         // Check today's assignments
         AnsiConsole.WriteLine();
-        var assignments = await client.Assignments( AssignmentFilter.Today() with {PersonId = user.Id} );
+        var assignments = await client.AssignmentsAsync( AssignmentFilter.Today() with {PersonId = user.Id} );
         if ( assignments.Count == 0 )
         {
             AnsiConsole.MarkupLine("[green]Hooray! Looks like you've got nothing assigned to you today.[/]");
@@ -98,13 +98,13 @@ public static class Program
     {
         string key = $"client:{id}";
 
-        return await Cache.GetOrCreateAsync( key, async _ => await forecastClient.Client( id ) );
+        return await Cache.GetOrCreateAsync( key, async _ => await forecastClient.ClientAsync( id ) );
     }
     
     private static async ValueTask<Project> GetProjectAsync( IForecastClient forecastClient, int id )
     {
         string key = $"project:{id}";
 
-        return await Cache.GetOrCreateAsync( key, async _ => await forecastClient.Project(id) );
+        return await Cache.GetOrCreateAsync( key, async _ => await forecastClient.ProjectAsync(id) );
     }
 }

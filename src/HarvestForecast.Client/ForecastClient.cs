@@ -36,13 +36,13 @@ public class ForecastClient : IForecastClient
     }
 
     /// <inheritdoc />
-    public ValueTask<Account> Account()
+    public ValueTask<Account> AccountAsync()
     {
         return GetEntityAsync<Account>( $"accounts/{options.AccountId}", "account");
     }
 
     /// <inheritdoc />
-    public ValueTask<IReadOnlyCollection<Assignment>> Assignments( AssignmentFilter filter )
+    public ValueTask<IReadOnlyCollection<Assignment>> AssignmentsAsync( AssignmentFilter filter )
     {
         string queryString = filter.GetFilterQuery();
         var subPath = $"assignments?{queryString}";
@@ -51,25 +51,25 @@ public class ForecastClient : IForecastClient
     }
 
     /// <inheritdoc />
-    public ValueTask<IReadOnlyCollection<Project>> Projects()
+    public ValueTask<IReadOnlyCollection<Project>> ProjectsAsync()
     {
         return GetEntityAsync<IReadOnlyCollection<Project>>( "projects", "projects" );
     }
 
     /// <inheritdoc />
-    public ValueTask<Project> Project( int id )
+    public ValueTask<Project> ProjectAsync( int id )
     {
         return GetEntityAsync<Project>( $"projects/{id}", "project" );
     }
 
     /// <inheritdoc />
-    public ValueTask<IReadOnlyCollection<Entities.Client>> Clients()
+    public ValueTask<IReadOnlyCollection<Entities.Client>> ClientsAsync()
     {
         return GetEntityAsync<IReadOnlyCollection<Entities.Client>>( "clients", "clients" );
     }
 
     /// <inheritdoc />
-    public ValueTask<Entities.Client> Client( int id )
+    public ValueTask<Entities.Client> ClientAsync( int id )
     {
         return GetEntityAsync<Entities.Client>( $"clients/{id}", "client" );
     }
