@@ -16,7 +16,7 @@ public record Assignment( [ property : JsonPropertyName( "id" ) ]
                           [ property : JsonConverter( typeof( LocalDateOnlyConverter ) ) ]
                           DateTime? EndDate,
                           [ property : JsonPropertyName( "allocation" ) ]
-                          string? Allocation,
+                          int? Allocation,
                           [ property : JsonPropertyName( "notes" ) ]
                           string? Notes ,
                           [ property : JsonPropertyName( "updated_at" ) ]
