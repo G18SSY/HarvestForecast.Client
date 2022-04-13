@@ -8,6 +8,5 @@ namespace HarvestForecast.Client.Entities;
 /// </summary>
 /// <param name="Id">The ID of the user.</param>
 /// <param name="AccountIds">The IDs of the accounts that this user is part of.</param>
-[ContainerProperty("current_user")]
 public record CurrentUser( [ property : JsonPropertyName( "id" ) ] int Id,
                            [ property : JsonPropertyName( "account_ids" ) ] IReadOnlyCollection<int> AccountIds );

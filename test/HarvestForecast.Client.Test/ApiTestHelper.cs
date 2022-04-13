@@ -11,7 +11,8 @@ public static class ApiTestHelper
         var handler = new MockHttpMessageHandler();
 
         handler.AddTestResponse( "whoami", "whoami.json" )
-               .AddTestResponse( "account*", "accounts.json" );
+               .AddTestResponse( "account*", "accounts.json" )
+               .AddTestResponse( "assignments*", "assignments.json" );
 
         var httpClient = handler.ToHttpClient();
 

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using HarvestForecast.Client.Entities;
 
 namespace HarvestForecast.Client;
@@ -12,9 +13,15 @@ public interface IForecastClient
     ///     Gets the <see cref="CurrentUser" /> object for the logged in user.
     /// </summary>
     ValueTask<CurrentUser> WhoAmIAsync();
-    
+
     /// <summary>
     ///     Gets the <see cref="Account" /> object for the active account.
     /// </summary>
     ValueTask<Account> Account();
+
+    /// <summary>
+    ///     Gets the assignments specified by the <paramref name="filter" />.
+    /// </summary>
+    /// <param name="filter">The options to filter by.</param>
+    ValueTask<IReadOnlyCollection<Assignment>> Assignments( AssignmentFilter filter );
 }

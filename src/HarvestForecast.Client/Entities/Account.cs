@@ -6,7 +6,6 @@ namespace HarvestForecast.Client.Entities;
 /// <summary>
 ///     An account configuration in Forecast. 
 /// </summary>
-[ContainerProperty("account")]
 public record Account( [ property : JsonPropertyName( "id" ) ] int Id,
                        [ property : JsonPropertyName( "name" ) ] string Name,
                        [ property : JsonPropertyName( "weekly_capacity" ) ] int WeeklyCapacity,

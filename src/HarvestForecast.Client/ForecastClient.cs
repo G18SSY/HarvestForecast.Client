@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Reflection;
 using System.Text.Json;
 using System.Threading.Tasks;
 using HarvestForecast.Client.Entities;
@@ -32,13 +32,22 @@ public class ForecastClient : IForecastClient
     /// <inheritdoc />
     public ValueTask<CurrentUser> WhoAmIAsync()
     {
-        return GetEntityAsync<CurrentUser>( "whoami" );
+        return GetEntityAsync<CurrentUser>( "whoami", "current_user" );
     }
 
     /// <inheritdoc />
     public ValueTask<Account> Account()
     {
-        return GetEntityAsync<Account>( $"accounts/{options.AccountId}" );
+        return GetEntityAsync<Account>( $"accounts/{options.AccountId}", "account");
+    }
+
+    /// <inheritdoc />
+    public ValueTask<IReadOnlyCollection<Assignment>> Assignments( AssignmentFilter filter )
+    {
+        string queryString = filter.ToQueryString();
+        var subPath = $"assignments?{queryString}";
+
+        return GetEntityAsync<IReadOnlyCollection<Assignment>>( subPath, "assignments" );
     }
 
     /// <summary>
@@ -61,10 +70,8 @@ public class ForecastClient : IForecastClient
         return new HttpRequestMessage( HttpMethod.Get, uri );
     }
 
-    private async ValueTask<T> GetEntityAsync<T>( string subPath )
+    private async ValueTask<T> GetEntityAsync<T>( string subPath, string containerPropertyName )
     {
-        string containerPropertyName = GetContainerPropertyName<T>();
-
         var request = GetRequestMessage( subPath );
         await AuthenticateRequest( request );
 
@@ -81,18 +88,5 @@ public class ForecastClient : IForecastClient
         }
 
         return entity;
-    }
-
-    private static string GetContainerPropertyName<T>()
-    {
-        var type = typeof( T );
-        var attribute = type.GetCustomAttribute<ContainerPropertyAttribute>();
-
-        if ( attribute is null )
-        {
-            throw new InvalidOperationException( $"{type.Name} does not define a container name" );
-        }
-
-        return attribute.Name;
     }
 }
