@@ -17,10 +17,10 @@ public record Project( [ property : JsonPropertyName( "id" ) ]
                        [ property : JsonPropertyName( "code" ) ] 
                        string Code,
                        [ property : JsonPropertyName( "start_date" ) ]
-                       [ property : JsonConverter( typeof( LocalDateOnlyConverter ) ) ]
+                       [ property : JsonConverter( typeof( LocalNullableDateOnlyConverter ) ) ]
                        DateTime? StartDate,
                        [ property : JsonPropertyName( "end_date" ) ]
-                       [ property : JsonConverter( typeof( LocalDateOnlyConverter ) ) ]
+                       [ property : JsonConverter( typeof( LocalNullableDateOnlyConverter ) ) ]
                        DateTime? EndDate,
                        [ property : JsonPropertyName( "notes" ) ]
                        string? Notes ,

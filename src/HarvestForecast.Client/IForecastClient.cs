@@ -39,9 +39,14 @@ public interface IForecastClient
     ///     Gets all of the clients.
     /// </summary>
     ValueTask<IReadOnlyCollection<Entities.Client>> ClientsAsync();
-    
+
     /// <summary>
     ///     Gets a client by ID.
     /// </summary>
-    ValueTask<Entities.Client> ClientAsync(int id);
+    ValueTask<Entities.Client> ClientAsync( int id );
+
+    /// <summary>
+    ///     Gets all of the milestones.
+    /// </summary>
+    ValueTask<IReadOnlyCollection<Milestone>> MilestonesAsync();
 }

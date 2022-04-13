@@ -10,10 +10,10 @@ namespace HarvestForecast.Client.Entities;
 public record Assignment( [ property : JsonPropertyName( "id" ) ] 
                           int Id,
                           [ property : JsonPropertyName( "start_date" ) ]
-                          [ property : JsonConverter( typeof( LocalDateOnlyConverter ) ) ]
+                          [ property : JsonConverter( typeof( LocalNullableDateOnlyConverter ) ) ]
                           DateTime? StartDate,
                           [ property : JsonPropertyName( "end_date" ) ]
-                          [ property : JsonConverter( typeof( LocalDateOnlyConverter ) ) ]
+                          [ property : JsonConverter( typeof( LocalNullableDateOnlyConverter ) ) ]
                           DateTime? EndDate,
                           [ property : JsonPropertyName( "allocation" ) ]
                           int? Allocation,

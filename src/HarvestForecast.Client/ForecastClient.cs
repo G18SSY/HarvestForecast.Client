@@ -74,6 +74,12 @@ public class ForecastClient : IForecastClient
         return GetEntityAsync<Entities.Client>( $"clients/{id}", "client" );
     }
 
+    /// <inheritdoc />
+    public ValueTask<IReadOnlyCollection<Milestone>> MilestonesAsync()
+    {
+        return GetEntityAsync<IReadOnlyCollection<Milestone>>( "milestones", "milestones" );
+    }
+
     /// <summary>
     ///     Adds authentication headers to a request. This is called before the request is sent and can be extended to add
     ///     additional headers in an overriding class.
