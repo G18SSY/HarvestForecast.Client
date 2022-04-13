@@ -25,12 +25,12 @@ public static class Program
         var client = new ForecastClient( new HttpClient(), options );
 
         // Detect the user
-        var user = await client.WhoAmIAsync();
+        var user = await client.WhoAmIAsync().WrapWithAnsiStatus("Loading user info...");
         AnsiConsole.MarkupLine( "[green]We've checked your access and everything looks good![/]" );
         AnsiConsole.WriteLine( $"Your user ID is '{user.Id}'" );
 
         // Check the account
-        var account = await client.AccountAsync();
+        var account = await client.AccountAsync().WrapWithAnsiStatus("Loading account info...");
         AnsiConsole.WriteLine( $"Your account is called '{account.Name}'" );
 
         if ( !string.IsNullOrEmpty( account.HarvestName ) )
@@ -38,7 +38,8 @@ public static class Program
         
         // Check today's assignments
         AnsiConsole.WriteLine();
-        var assignments = await client.AssignmentsAsync( AssignmentFilter.Today() with {PersonId = user.Id} );
+        var assignments = await client.AssignmentsAsync( AssignmentFilter.Today() with {PersonId = user.Id} )
+                                      .WrapWithAnsiStatus("Loading assignments...");
         if ( assignments.Count == 0 )
         {
             AnsiConsole.MarkupLine("[green]Hooray! Looks like you've got nothing assigned to you today.[/]");
@@ -106,5 +107,19 @@ public static class Program
         string key = $"project:{id}";
 
         return await Cache.GetOrCreateAsync( key, async _ => await forecastClient.ProjectAsync(id) );
+    }
+
+    private static async ValueTask<T> WrapWithAnsiStatus<T>( this ValueTask<T> task, string status )
+    {
+        var result = await AnsiConsole.Status()
+                                      .StartAsync( status, async context =>
+                                                           {
+                                                               context.Spinner = Spinner.Known.Circle;
+                                                               context.SpinnerStyle = Style.Parse( "fuchsia" );
+
+                                                               return await task;
+                                                           } );
+
+        return result;
     }
 }
