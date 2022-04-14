@@ -14,7 +14,7 @@ public class PeopleTests
     {
         var client = ApiTestHelper.GetMockedForecastClient();
 
-        var people = await client.PeopleAsync();
+        var people = await client.GetPeopleAsync();
 
         Assert.NotNull( people );
         Assert.NotEmpty( people );
@@ -37,6 +37,6 @@ public class PeopleTests
     {
         var client = ApiTestHelper.GetFailedRequestForecastClient();
 
-        await Assert.ThrowsAsync<HttpRequestException>( async () => await client.PeopleAsync() );
+        await Assert.ThrowsAsync<HttpRequestException>( async () => await client.GetPeopleAsync() );
     }
 }

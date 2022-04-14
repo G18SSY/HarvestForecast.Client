@@ -15,53 +15,53 @@ public interface IForecastClient
     ValueTask<CurrentUser> WhoAmIAsync();
 
     /// <summary>
-    ///     Gets the <see cref="AccountAsync" /> object for the active account.
+    ///     Gets the <see cref="GetAccountAsync" /> object for the active account.
     /// </summary>
-    ValueTask<Account> AccountAsync();
+    ValueTask<Account> GetAccountAsync();
 
     /// <summary>
     ///     Gets the assignments specified by the <paramref name="filter" />.
     /// </summary>
     /// <param name="filter">The options to filter by.</param>
-    ValueTask<IReadOnlyCollection<Assignment>> AssignmentsAsync( AssignmentFilter filter );
+    ValueTask<IReadOnlyCollection<Assignment>> GetAssignmentsAsync( AssignmentFilter filter );
 
     /// <summary>
     ///     Gets all of the projects.
     /// </summary>
-    ValueTask<IReadOnlyCollection<Project>> ProjectsAsync();
+    ValueTask<IReadOnlyCollection<Project>> GetProjectsAsync();
 
     /// <summary>
     ///     Gets a project by ID.
     /// </summary>
-    ValueTask<Project> ProjectAsync( int id );
+    ValueTask<Project> GetProjectAsync( int id );
     
     /// <summary>
     ///     Gets all of the clients.
     /// </summary>
-    ValueTask<IReadOnlyCollection<Entities.Client>> ClientsAsync();
+    ValueTask<IReadOnlyCollection<Entities.Client>> GetClientsAsync();
 
     /// <summary>
     ///     Gets a client by ID.
     /// </summary>
-    ValueTask<Entities.Client> ClientAsync( int id );
+    ValueTask<Entities.Client> GetClientAsync( int id );
 
     /// <summary>
     ///     Gets all of the milestones.
     /// </summary>
-    ValueTask<IReadOnlyCollection<Milestone>> MilestonesAsync();
+    ValueTask<IReadOnlyCollection<Milestone>> GetMilestonesAsync();
     
     /// <summary>
     ///     Gets the milestones specified by the <paramref name="filter" />.
     /// </summary>
-    ValueTask<IReadOnlyCollection<Milestone>> MilestonesAsync( MilestoneFilter filter );
+    ValueTask<IReadOnlyCollection<Milestone>> GetMilestonesAsync( MilestoneFilter filter );
     
     /// <summary>
     ///     Gets all of the people.
     /// </summary>
-    ValueTask<IReadOnlyCollection<Person>> PeopleAsync( );
+    ValueTask<IReadOnlyCollection<Person>> GetPeopleAsync( );
     
     /// <summary>
     ///     Gets a single person.
     /// </summary>
-    ValueTask<Person> PersonAsync( int id );
+    ValueTask<Person> GetPersonAsync( int id );
 }

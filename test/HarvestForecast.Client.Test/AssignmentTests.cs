@@ -15,7 +15,7 @@ public class AssignmentTests
     {
         var client = ApiTestHelper.GetMockedForecastClient();
 
-        var assignments = await client.AssignmentsAsync( AssignmentFilter.Today() );
+        var assignments = await client.GetAssignmentsAsync( AssignmentFilter.Today() );
 
         Assert.NotNull( assignments );
         Assert.NotEmpty( assignments );
@@ -116,6 +116,6 @@ public class AssignmentTests
     {
         var client = ApiTestHelper.GetFailedRequestForecastClient();
 
-        await Assert.ThrowsAsync<HttpRequestException>( async () => await client.AssignmentsAsync( AssignmentFilter.Today() ) );
+        await Assert.ThrowsAsync<HttpRequestException>( async () => await client.GetAssignmentsAsync( AssignmentFilter.Today() ) );
     }
 }

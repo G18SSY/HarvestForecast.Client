@@ -30,7 +30,7 @@ public static class Program
         AnsiConsole.WriteLine( $"Your user ID is '{user.Id}'" );
 
         // Check the account
-        var account = await client.AccountAsync().WrapWithAnsiStatus( "Loading account info..." );
+        var account = await client.GetAccountAsync().WrapWithAnsiStatus( "Loading account info..." );
         AnsiConsole.WriteLine( $"Your account is called '{account.Name}'" );
 
         if ( !string.IsNullOrEmpty( account.HarvestName ) )
@@ -40,7 +40,7 @@ public static class Program
 
         // Check today's assignments
         AnsiConsole.WriteLine();
-        var assignments = await client.AssignmentsAsync( AssignmentFilter.Today() with {PersonId = user.Id} )
+        var assignments = await client.GetAssignmentsAsync( AssignmentFilter.Today() with {PersonId = user.Id} )
                                       .WrapWithAnsiStatus( "Loading assignments..." );
         if ( assignments.Count == 0 )
         {
@@ -74,7 +74,7 @@ public static class Program
 
             var milestoneTasks = assignments.Select( a => a.ProjectId )
                                             .Distinct()
-                                            .Select( p => client.MilestonesAsync( new MilestoneFilter {ProjectId = p} ).AsTask() );
+                                            .Select( p => client.GetMilestonesAsync( new MilestoneFilter {ProjectId = p} ).AsTask() );
 
             var milestoneLimit = DateTime.Today + TimeSpan.FromDays( 14 );
             var milestones = ( await Task.WhenAll( milestoneTasks ) )
@@ -143,14 +143,14 @@ public static class Program
     {
         string key = $"client:{id}";
 
-        return await Cache.GetOrCreateAsync( key, async _ => await forecastClient.ClientAsync( id ) );
+        return await Cache.GetOrCreateAsync( key, async _ => await forecastClient.GetClientAsync( id ) );
     }
 
     private static async ValueTask<Project> GetProjectAsync( IForecastClient forecastClient, int id )
     {
         string key = $"project:{id}";
 
-        return await Cache.GetOrCreateAsync( key, async _ => await forecastClient.ProjectAsync( id ) );
+        return await Cache.GetOrCreateAsync( key, async _ => await forecastClient.GetProjectAsync( id ) );
     }
 
     private static async ValueTask<T> WrapWithAnsiStatus<T>( this ValueTask<T> task, string status )

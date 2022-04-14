@@ -13,7 +13,7 @@ public class MilestoneTests
     {
         var client = ApiTestHelper.GetMockedForecastClient();
 
-        var milestones = await client.MilestonesAsync();
+        var milestones = await client.GetMilestonesAsync();
 
         Assert.NotNull( milestones );
         Assert.NotEmpty( milestones );
@@ -32,6 +32,6 @@ public class MilestoneTests
     {
         var client = ApiTestHelper.GetFailedRequestForecastClient();
 
-        await Assert.ThrowsAsync<HttpRequestException>( async () => await client.MilestonesAsync() );
+        await Assert.ThrowsAsync<HttpRequestException>( async () => await client.GetMilestonesAsync() );
     }
 }

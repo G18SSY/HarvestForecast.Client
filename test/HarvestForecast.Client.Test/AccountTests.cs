@@ -13,7 +13,7 @@ public class AccountTests
     {
         var client = ApiTestHelper.GetMockedForecastClient();
 
-        var account = await client.AccountAsync();
+        var account = await client.GetAccountAsync();
 
         Assert.NotNull( account );
         Assert.Equal( 987654, account.Id );
@@ -31,6 +31,6 @@ public class AccountTests
     {
         var client = ApiTestHelper.GetFailedRequestForecastClient();
 
-        await Assert.ThrowsAsync<HttpRequestException>( async () => await client.AccountAsync() );
+        await Assert.ThrowsAsync<HttpRequestException>( async () => await client.GetAccountAsync() );
     }
 }

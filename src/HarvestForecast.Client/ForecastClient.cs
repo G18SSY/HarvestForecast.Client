@@ -36,59 +36,59 @@ public class ForecastClient : IForecastClient
     }
 
     /// <inheritdoc />
-    public ValueTask<Account> AccountAsync()
+    public ValueTask<Account> GetAccountAsync()
     {
         return GetEntityAsync<Account>( $"accounts/{options.AccountId}", "account");
     }
 
     /// <inheritdoc />
-    public ValueTask<IReadOnlyCollection<Assignment>> AssignmentsAsync( AssignmentFilter filter )
+    public ValueTask<IReadOnlyCollection<Assignment>> GetAssignmentsAsync( AssignmentFilter filter )
     {
         return GetEntityAsync<IReadOnlyCollection<Assignment>>( "assignments", "assignments", filter );
     }
 
     /// <inheritdoc />
-    public ValueTask<IReadOnlyCollection<Project>> ProjectsAsync()
+    public ValueTask<IReadOnlyCollection<Project>> GetProjectsAsync()
     {
         return GetEntityAsync<IReadOnlyCollection<Project>>( "projects", "projects" );
     }
 
     /// <inheritdoc />
-    public ValueTask<Project> ProjectAsync( int id )
+    public ValueTask<Project> GetProjectAsync( int id )
     {
         return GetEntityAsync<Project>( $"projects/{id}", "project" );
     }
 
     /// <inheritdoc />
-    public ValueTask<IReadOnlyCollection<Entities.Client>> ClientsAsync()
+    public ValueTask<IReadOnlyCollection<Entities.Client>> GetClientsAsync()
     {
         return GetEntityAsync<IReadOnlyCollection<Entities.Client>>( "clients", "clients" );
     }
 
     /// <inheritdoc />
-    public ValueTask<Entities.Client> ClientAsync( int id )
+    public ValueTask<Entities.Client> GetClientAsync( int id )
     {
         return GetEntityAsync<Entities.Client>( $"clients/{id}", "client" );
     }
 
     /// <inheritdoc />
-    public ValueTask<IReadOnlyCollection<Milestone>> MilestonesAsync()
-        => MilestonesAsync( MilestoneFilter.None );
+    public ValueTask<IReadOnlyCollection<Milestone>> GetMilestonesAsync()
+        => GetMilestonesAsync( MilestoneFilter.None );
 
     /// <inheritdoc />
-    public ValueTask<IReadOnlyCollection<Milestone>> MilestonesAsync( MilestoneFilter filter )
+    public ValueTask<IReadOnlyCollection<Milestone>> GetMilestonesAsync( MilestoneFilter filter )
     {
         return GetEntityAsync<IReadOnlyCollection<Milestone>>( "milestones", "milestones", filter );
     }
 
     /// <inheritdoc />
-    public ValueTask<IReadOnlyCollection<Person>> PeopleAsync()
+    public ValueTask<IReadOnlyCollection<Person>> GetPeopleAsync()
     {
         return GetEntityAsync<IReadOnlyCollection<Person>>( "people", "people" );
     }
 
     /// <inheritdoc />
-    public ValueTask<Person> PersonAsync( int id )
+    public ValueTask<Person> GetPersonAsync( int id )
     {
         return GetEntityAsync<Person>( $"people/{id}", "person" );
     }

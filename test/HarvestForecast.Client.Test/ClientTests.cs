@@ -13,7 +13,7 @@ public class ClientTests
     {
         var client = ApiTestHelper.GetMockedForecastClient();
 
-        var clients = await client.ClientsAsync();
+        var clients = await client.GetClientsAsync();
 
         Assert.NotNull( clients );
         Assert.NotEmpty( clients );
@@ -32,6 +32,6 @@ public class ClientTests
     {
         var client = ApiTestHelper.GetFailedRequestForecastClient();
 
-        await Assert.ThrowsAsync<HttpRequestException>( async () => await client.ClientsAsync() );
+        await Assert.ThrowsAsync<HttpRequestException>( async () => await client.GetClientsAsync() );
     }
 }
