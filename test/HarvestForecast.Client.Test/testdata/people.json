@@ -24,7 +24,7 @@
 			"weekly_capacity": 40,
 			"working_days": {
 				"monday": true,
-				"tuesday": true,
+				"tuesday": false,
 				"wednesday": true,
 				"thursday": true,
 				"friday": true

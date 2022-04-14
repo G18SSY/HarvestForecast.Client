@@ -54,4 +54,14 @@ public interface IForecastClient
     ///     Gets the milestones specified by the <paramref name="filter" />.
     /// </summary>
     ValueTask<IReadOnlyCollection<Milestone>> MilestonesAsync( MilestoneFilter filter );
+    
+    /// <summary>
+    ///     Gets all of the people.
+    /// </summary>
+    ValueTask<IReadOnlyCollection<Person>> PeopleAsync( );
+    
+    /// <summary>
+    ///     Gets a single person.
+    /// </summary>
+    ValueTask<Person> PersonAsync( int id );
 }

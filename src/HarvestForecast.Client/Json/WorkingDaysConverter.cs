@@ -22,7 +22,7 @@ internal class WorkingDaysConverter : JsonConverter<WorkingDays>
             }
         }
 
-        ReadRequiredToken( ref reader, JsonTokenType.EndObject );
+        AssertRequiredToken( ref reader, JsonTokenType.EndObject );
 
         return days;
     }
@@ -49,18 +49,10 @@ internal class WorkingDaysConverter : JsonConverter<WorkingDays>
         }
     }
 
-    private static void ReadRequiredToken( ref Utf8JsonReader reader, JsonTokenType type, bool requireMoreContent = false )
+    private static void ReadRequiredToken( ref Utf8JsonReader reader, JsonTokenType type )
     {
         AssertRequiredToken( ref reader, type );
-
-        if ( requireMoreContent )
-        {
-            ReadAndRequire( ref reader );
-        }
-        else
-        {
-            reader.Read();
-        }
+        ReadAndRequire( ref reader );
     }
 
     private static void ReadAndRequire( ref Utf8JsonReader reader )
