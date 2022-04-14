@@ -1,11 +1,16 @@
 # HarvestForecast.Client
+![Nuget](https://img.shields.io/nuget/v/HarvestForecast.Client)
+
 API client package for Harvest Forecast
 
 Inspired by the unofficial [Go package](https://github.com/joefitzgerald/forecast) for [Harvest Forecast](https://www.getharvest.com/forecast) which I had a quick play with [here](https://github.com/G18SSY/forecast-test). I created this .NET client package as a direct(ish) port of that so it could be used in .NET based projects.
 
 ## Installation
 
-This package will be available to install via NuGet once it is complete and tested.
+This package will be available to install via NuGet!
+```shell
+dotnet add package HarvestForecast.Client
+```
 
 ## Usage
 To get started you will need an access token and account ID. These can be created/found [here](https://id.getharvest.com/oauth2/access_tokens/new). Make sure you enter your Forecast ID and not your Harvest one (they're different).
@@ -31,7 +36,7 @@ Requirements:
 - Your favourite IDE or text editor
 - .NET 6 SDK (older version may work but I haven't tried them)
 
-This project will be built using [NUKE](https://www.nuke.build/index.html) and GitHub actions. You can run the build locally by installing Nuke and running it's default command:
+This project is built using [NUKE](https://www.nuke.build/index.html) and GitHub actions. You can run the build locally by installing Nuke and running it's default command:
 ```shell
 dotnet tool install Nuke.GlobalTool --global
 nuke
