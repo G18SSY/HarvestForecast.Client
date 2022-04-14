@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
+using HarvestForecast.Client.Json;
 
 namespace HarvestForecast.Client.Entities;
 
 /// <summary>
 ///     Indicates the days of the week that a <see cref="Person" /> works.
 /// </summary>
+[ JsonConverter( typeof( WorkingDaysConverter ) ) ]
 public readonly struct WorkingDays
 {
     [ Flags ]
@@ -137,5 +140,18 @@ public readonly struct WorkingDays
     public override string ToString()
     {
         return string.Join( " | ", GetDays().Select( d => d.ToString() ) );
+    }
+
+    /// <inheritdoc />
+    public override bool Equals( object? obj )
+    {
+        return obj is WorkingDays other &&
+               flags == other.flags;
+    }
+
+    /// <inheritdoc />
+    public override int GetHashCode()
+    {
+        return (int) flags;
     }
 }
