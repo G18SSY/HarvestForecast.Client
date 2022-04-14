@@ -14,11 +14,13 @@ using static Nuke.Common.Tools.DotNet.DotNetTasks;
 
 [ GitHubActions( "RunTests",
                  GitHubActionsImage.UbuntuLatest,
+                 EnableGitHubToken = true,
                  AutoGenerate = true,
                  OnPullRequestBranches = new[] {"main"},
                  InvokedTargets = new[] {nameof( Test )} ) ]
 [ GitHubActions( "Push",
                  GitHubActionsImage.UbuntuLatest,
+                 EnableGitHubToken = true,
                  AutoGenerate = true,
                  OnPushBranches = new[] {"main"},
                  ImportSecrets = new[] {"NUGET_API_KEY"},
