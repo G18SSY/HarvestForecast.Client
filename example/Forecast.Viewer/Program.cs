@@ -1,4 +1,8 @@
-﻿using HarvestForecast.Client;
+﻿using System;
+using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
+using HarvestForecast.Client;
 using HarvestForecast.Client.Entities;
 using Microsoft.Extensions.Caching.Memory;
 using Spectre.Console;

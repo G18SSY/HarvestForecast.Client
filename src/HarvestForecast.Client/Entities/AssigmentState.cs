@@ -5,6 +5,13 @@
 /// </summary>
 public enum AssigmentState
 {
+    /// <summary>
+    ///     Active assignments.
+    /// </summary>
     Active,
+
+    /// <summary>
+    ///     Previous assignments.
+    /// </summary>
     Archived
 }

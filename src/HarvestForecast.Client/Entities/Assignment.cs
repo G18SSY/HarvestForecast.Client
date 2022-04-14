@@ -7,7 +7,18 @@ namespace HarvestForecast.Client.Entities;
 /// <summary>
 ///     An item of work assigned to a resource.
 /// </summary>
+/// <param name="Id">The unique ID number.</param>
 /// <param name="Allocation">The time allocated to the task.</param>
+/// <param name="StartDate">The first day of the assignment.</param>
+/// <param name="EndDate">The last day of the assignment.</param>
+/// <param name="Notes">Optional notes with more details.</param>
+/// <param name="UpdatedAt">The timestamp of the last update.</param>
+/// <param name="UpdatedById">The last user to update the <see cref="Assignment" />.</param>
+/// <param name="ProjectId">The ID of the <see cref="Project" /> this assignment is for.</param>
+/// <param name="PersonId">The ID of the <see cref="Person" /> this is assigned to.</param>
+/// <param name="PlaceholderId">The ID of the <see cref="Placeholder" /> this is assigned to.</param>
+/// <param name="RepeatedAssignmentSetId">The ID of the repeating assignment this is from.</param>
+/// <param name="ActiveOnDaysOff">Indicates if the assignment continues during non-working days.</param>
 public record Assignment( [ property : JsonPropertyName( "id" ) ] 
                           int Id,
                           [ property : JsonPropertyName( "start_date" ) ]

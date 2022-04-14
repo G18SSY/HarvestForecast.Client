@@ -39,6 +39,11 @@ nuke
 
 This will build the package and place it into the artifacts directory of the solution.
 
+Versioning is done by [GitVersion](). If you find you need the tool installed then you can install it with:
+```shell
+dotnet tool install --global GitVersion.Tool 
+```
+
 ## Issues & Contributing
 
 I don't expect this library to need a huge amount of maintenance, if you have an issue to please consider contributing a fix too!
