@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 using HarvestForecast.Client.Entities;
 using Xunit;
@@ -17,7 +18,7 @@ public class AccountTests
         Assert.NotNull( account );
         Assert.Equal( 987654, account.Id );
         Assert.Equal( "Test", account.Name );
-        Assert.Equal( 144000, account.WeeklyCapacity );
+        Assert.Equal( TimeSpan.FromHours(40), account.WeeklyCapacity );
         Assert.Equal( "Test", account.HarvestName );
         Assert.Equal( "test", account.HarvestSubDomain );
         Assert.Equal( 8, account.ColorLabels.Count );

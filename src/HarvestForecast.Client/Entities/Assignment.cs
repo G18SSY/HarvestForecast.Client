@@ -7,6 +7,7 @@ namespace HarvestForecast.Client.Entities;
 /// <summary>
 ///     An item of work assigned to a resource.
 /// </summary>
+/// <param name="Allocation">The time allocated to the task.</param>
 public record Assignment( [ property : JsonPropertyName( "id" ) ] 
                           int Id,
                           [ property : JsonPropertyName( "start_date" ) ]
@@ -16,7 +17,8 @@ public record Assignment( [ property : JsonPropertyName( "id" ) ]
                           [ property : JsonConverter( typeof( LocalNullableDateOnlyConverter ) ) ]
                           DateTime? EndDate,
                           [ property : JsonPropertyName( "allocation" ) ]
-                          int? Allocation,
+                          [ property : JsonConverter( typeof( SecondsToNullableTimeSpanConverter ) ) ]
+                          TimeSpan? Allocation,
                           [ property : JsonPropertyName( "notes" ) ]
                           string? Notes ,
                           [ property : JsonPropertyName( "updated_at" ) ]
