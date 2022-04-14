@@ -36,3 +36,5 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('**/global.json', '**/*.csproj') }}
       - name: Run './build.cmd Test'
         run: ./build.cmd Test
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

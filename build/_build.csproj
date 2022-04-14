@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -8,21 +8,11 @@
     <NukeRootDirectory>..</NukeRootDirectory>
     <NukeScriptDirectory>..</NukeScriptDirectory>
     <NukeTelemetryVersion>1</NukeTelemetryVersion>
-  
-    <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Nuke.Common" Version="6.0.2" />
     <PackageDownload Include="GitVersion.Tool" Version="[5.8.0]" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ci" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="..\azure-pipelines.yml" />
   </ItemGroup>
 
 </Project>
