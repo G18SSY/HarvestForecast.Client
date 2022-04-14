@@ -1,0 +1,29 @@
+﻿{
+  "roles": [
+    {
+      "id": 1111,
+      "name": "Testing",
+      "placeholder_ids": [
+        4374,
+        488331
+      ],
+      "person_ids": [
+        503323704
+      ],
+      "harvest_role_id": null
+    },
+    {
+      "id": 2222,
+      "name": "Design",
+      "placeholder_ids": [
+        3973346,
+        4884320
+      ],
+      "person_ids": [
+        345432184,
+        5292381
+      ],
+      "harvest_role_id": 2421
+    }
+  ]
+}

@@ -100,7 +100,7 @@ public class ForecastClient : IForecastClient
     }
 
     /// <inheritdoc />
-    public ValueTask<IReadOnlyCollection<Placeholder>> GetPlaceholderAsync()
+    public ValueTask<IReadOnlyCollection<Placeholder>> GetPlaceholdersAsync()
     {
         return GetEntityAsync<IReadOnlyCollection<Placeholder>>( "placeholders", "placeholders" );
     }
@@ -109,6 +109,19 @@ public class ForecastClient : IForecastClient
     public ValueTask<Placeholder?> GetPlaceholderAsync( int id )
     {
         return GetEntityAsync<Placeholder>( $"placeholders/{id}", "placeholder" )
+           .ReturnNullIfNotFoundAsync();
+    }
+
+    /// <inheritdoc />
+    public ValueTask<IReadOnlyCollection<Role>> GetRolesAsync()
+    {
+        return GetEntityAsync<IReadOnlyCollection<Role>>( "roles", "roles" );
+    }
+
+    /// <inheritdoc />
+    public ValueTask<Role?> GetRoleAsync( int id )
+    {
+        return GetEntityAsync<Role>( $"roles/{id}", "role" )
            .ReturnNullIfNotFoundAsync();
     }
 

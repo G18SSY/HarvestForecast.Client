@@ -13,7 +13,7 @@ public class PlaceholderTests
     {
         var client = ApiTestHelper.GetMockedForecastClient();
 
-        var placeholders = await client.GetPlaceholderAsync();
+        var placeholders = await client.GetPlaceholdersAsync();
 
         Assert.NotNull( placeholders );
         Assert.NotEmpty( placeholders );
@@ -32,6 +32,6 @@ public class PlaceholderTests
     {
         var client = ApiTestHelper.GetFailedRequestForecastClient();
 
-        await Assert.ThrowsAsync<HttpRequestException>( async () => await client.GetPlaceholderAsync() );
+        await Assert.ThrowsAsync<HttpRequestException>( async () => await client.GetPlaceholdersAsync() );
     }
 }

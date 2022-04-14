@@ -16,6 +16,7 @@ public static class ApiTestHelper
                .AddTestResponse( "projects", "projects.json" )
                .AddTestResponse( "milestones", "milestones.json" )
                .AddTestResponse( "placeholders", "placeholders.json" )
+               .AddTestResponse( "roles", "roles.json" )
                .AddTestResponse( "people", "people.json" )
                .AddTestResponse( "clients", "clients.json" );
 

@@ -68,10 +68,20 @@ public interface IForecastClient
     /// <summary>
     ///     Gets all of the placeholders.
     /// </summary>
-    ValueTask<IReadOnlyCollection<Placeholder>> GetPlaceholderAsync();
+    ValueTask<IReadOnlyCollection<Placeholder>> GetPlaceholdersAsync();
 
     /// <summary>
     ///     Gets a single placeholder or null if one is not found with that ID.
     /// </summary>
     ValueTask<Placeholder?> GetPlaceholderAsync( int id );
+    
+    /// <summary>
+    ///     Gets all of the roles.
+    /// </summary>
+    ValueTask<IReadOnlyCollection<Role>> GetRolesAsync();
+
+    /// <summary>
+    ///     Gets a single role or null if one is not found with that ID.
+    /// </summary>
+    ValueTask<Role?> GetRoleAsync( int id );
 }

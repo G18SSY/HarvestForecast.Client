@@ -16,4 +16,4 @@ This package will be available to install via NuGet once it is complete and test
 - [x] Person
 - [x] Placeholder
 - [x] Project
-- [ ] Role
+- [x] Role
