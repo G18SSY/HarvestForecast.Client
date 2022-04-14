@@ -38,6 +38,20 @@ public static class Program
             AnsiConsole.WriteLine( $"Your account is connected to Harvest: '{account.HarvestName}'" );
         }
 
+        // Give a proper welcome
+        var person = await client.GetPersonAsync( user.Id );
+        if ( person is { } )
+        {
+            AnsiConsole.Markup( $"[green]Hi {person.FirstName}, we checked your profile details [/] " );
+            bool workingToday = person.WorkingDays.IsActiveOn( DateTime.Today.DayOfWeek );
+            string workingLine = workingToday ? "and it looks like today is one of your working days!" : "and it looks like today is not one of your working days!";
+            AnsiConsole.MarkupLine( $"[green]{workingLine}[/]" );
+        }
+        else
+        {
+            AnsiConsole.MarkupLine( "[red]We can't check your profile details right now but we can still check your assignments...[/]" );
+        }
+
         // Check today's assignments
         AnsiConsole.WriteLine();
         var assignments = await client.GetAssignmentsAsync( AssignmentFilter.Today() with {PersonId = user.Id} )
@@ -143,14 +157,14 @@ public static class Program
     {
         string key = $"client:{id}";
 
-        return await Cache.GetOrCreateAsync( key, async _ => await forecastClient.GetClientAsync( id ) );
+        return await Cache.GetOrCreateAsync( key, async _ => await forecastClient.GetClientAsync( id ) ) ?? throw new InvalidOperationException( "Failed to fetch the specified client" );
     }
 
     private static async ValueTask<Project> GetProjectAsync( IForecastClient forecastClient, int id )
     {
         string key = $"project:{id}";
 
-        return await Cache.GetOrCreateAsync( key, async _ => await forecastClient.GetProjectAsync( id ) );
+        return await Cache.GetOrCreateAsync( key, async _ => await forecastClient.GetProjectAsync( id ) ) ?? throw new InvalidOperationException( "Failed to fetch the specified client" );
     }
 
     private static async ValueTask<T> WrapWithAnsiStatus<T>( this ValueTask<T> task, string status )

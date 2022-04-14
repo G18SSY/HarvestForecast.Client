@@ -66,6 +66,15 @@ public readonly struct WorkingDays
     }
 
     /// <summary>
+    /// Checks if a specific <paramref name="day"/> is active.
+    /// </summary>
+    public bool IsActiveOn( DayOfWeek day )
+    {
+        var flag = MapToFlag(day);
+        return flags.HasFlag( flag );
+    }
+
+    /// <summary>
     ///     Checks if Monday is active.
     /// </summary>
     public bool Monday => flags.HasFlag( FlaggedDays.Monday );
