@@ -31,37 +31,37 @@ public interface IForecastClient
     ValueTask<IReadOnlyCollection<Project>> GetProjectsAsync();
 
     /// <summary>
-    ///     Gets a project by ID.
+    ///     Gets a project by ID or null if one is not found with that ID.
     /// </summary>
-    ValueTask<Project> GetProjectAsync( int id );
-    
+    ValueTask<Project?> GetProjectAsync( int id );
+
     /// <summary>
     ///     Gets all of the clients.
     /// </summary>
     ValueTask<IReadOnlyCollection<Entities.Client>> GetClientsAsync();
 
     /// <summary>
-    ///     Gets a client by ID.
+    ///     Gets a client by ID or null if one is not found with that ID.
     /// </summary>
-    ValueTask<Entities.Client> GetClientAsync( int id );
+    ValueTask<Entities.Client?> GetClientAsync( int id );
 
     /// <summary>
     ///     Gets all of the milestones.
     /// </summary>
     ValueTask<IReadOnlyCollection<Milestone>> GetMilestonesAsync();
-    
+
     /// <summary>
     ///     Gets the milestones specified by the <paramref name="filter" />.
     /// </summary>
     ValueTask<IReadOnlyCollection<Milestone>> GetMilestonesAsync( MilestoneFilter filter );
-    
+
     /// <summary>
     ///     Gets all of the people.
     /// </summary>
-    ValueTask<IReadOnlyCollection<Person>> GetPeopleAsync( );
-    
+    ValueTask<IReadOnlyCollection<Person>> GetPeopleAsync();
+
     /// <summary>
-    ///     Gets a single person.
+    ///     Gets a single person or null if one is not found with that ID.
     /// </summary>
-    ValueTask<Person> GetPersonAsync( int id );
+    ValueTask<Person?> GetPersonAsync( int id );
 }

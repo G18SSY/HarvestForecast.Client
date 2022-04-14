@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text.Json;
@@ -38,7 +39,7 @@ public class ForecastClient : IForecastClient
     /// <inheritdoc />
     public ValueTask<Account> GetAccountAsync()
     {
-        return GetEntityAsync<Account>( $"accounts/{options.AccountId}", "account");
+        return GetEntityAsync<Account>( $"accounts/{options.AccountId}", "account" );
     }
 
     /// <inheritdoc />
@@ -54,9 +55,10 @@ public class ForecastClient : IForecastClient
     }
 
     /// <inheritdoc />
-    public ValueTask<Project> GetProjectAsync( int id )
+    public ValueTask<Project?> GetProjectAsync( int id )
     {
-        return GetEntityAsync<Project>( $"projects/{id}", "project" );
+        return GetEntityAsync<Project>( $"projects/{id}", "project" )
+           .ReturnNullIfNotFoundAsync();
     }
 
     /// <inheritdoc />
@@ -66,14 +68,17 @@ public class ForecastClient : IForecastClient
     }
 
     /// <inheritdoc />
-    public ValueTask<Entities.Client> GetClientAsync( int id )
+    public ValueTask<Entities.Client?> GetClientAsync( int id )
     {
-        return GetEntityAsync<Entities.Client>( $"clients/{id}", "client" );
+        return GetEntityAsync<Entities.Client>( $"clients/{id}", "client" )
+           .ReturnNullIfNotFoundAsync();
     }
 
     /// <inheritdoc />
     public ValueTask<IReadOnlyCollection<Milestone>> GetMilestonesAsync()
-        => GetMilestonesAsync( MilestoneFilter.None );
+    {
+        return GetMilestonesAsync( MilestoneFilter.None );
+    }
 
     /// <inheritdoc />
     public ValueTask<IReadOnlyCollection<Milestone>> GetMilestonesAsync( MilestoneFilter filter )
@@ -88,9 +93,10 @@ public class ForecastClient : IForecastClient
     }
 
     /// <inheritdoc />
-    public ValueTask<Person> GetPersonAsync( int id )
+    public ValueTask<Person?> GetPersonAsync( int id )
     {
-        return GetEntityAsync<Person>( $"people/{id}", "person" );
+        return GetEntityAsync<Person>( $"people/{id}", "person" )
+           .ReturnNullIfNotFoundAsync();
     }
 
     /// <summary>
@@ -120,13 +126,22 @@ public class ForecastClient : IForecastClient
             string queryString = filter.GetFilterQuery();
 
             if ( !string.IsNullOrEmpty( queryString ) )
+            {
                 subPath += $"?{queryString}";
+            }
         }
-        
+
         var request = GetRequestMessage( subPath );
         await AuthenticateRequest( request );
 
         var response = await httpClient.SendAsync( request );
+
+        // Throw a special exception for 404 so we can filter out these results
+        if ( response.StatusCode == HttpStatusCode.NotFound )
+        {
+            throw new NotFoundException();
+        }
+
         response.EnsureSuccessStatusCode();
 
         using var content = await response.Content.ReadAsStreamAsync();
