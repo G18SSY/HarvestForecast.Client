@@ -53,14 +53,19 @@ public static class Program
             var table = new Table();
             table.AddColumn( "Client" );
             table.AddColumn( "Project" );
+            table.AddColumn( "Duration" );
             table.AddColumn( "Notes" );
 
             foreach ( var assignment in assignments )
             {
                 var project = await GetProjectAsync( client, assignment.ProjectId );
                 var projectClient = project.ClientId.HasValue ? await GetClientAsync( client, project.ClientId.Value ) : null;
-
-                table.AddRow( projectClient?.Name ?? "-", project.Name, assignment.Notes ?? string.Empty );
+                string duration = assignment.Allocation is null ? "-" : assignment.Allocation.Value.TotalHours.ToString( "0.#" ) + "h";
+                
+                table.AddRow( projectClient?.Name ?? "-",
+                              project.Name,
+                              duration,
+                              assignment.Notes ?? string.Empty );
             }
 
             AnsiConsole.Write( table );
