@@ -31,7 +31,7 @@ class Build : NukeBuild
 {
     [ Parameter( "Configuration to build - Default is 'Debug' (local) or 'Release' (server)" ) ] readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
 
-    [GitVersion(Framework = "netcoreapp3.1")] readonly GitVersion GitVersion;
+    [ GitVersion ] readonly GitVersion GitVersion;
 
     [ Solution ] readonly Solution Solution;
 
@@ -77,6 +77,7 @@ class Build : NukeBuild
                                                       .SetConfiguration( Configuration )
                                                       .SetAssemblyVersion( GitVersion.AssemblySemVer )
                                                       .SetFileVersion( GitVersion.AssemblySemFileVer )
+                                                      .SetVersion( GitVersion.NuGetVersionV2 )
                                                       .SetInformationalVersion( GitVersion.InformationalVersion )
                                                       .SetOutputDirectory( ArtifactsDirectory )
                                                       .EnableNoBuild() );
