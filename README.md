@@ -14,6 +14,6 @@ This package will be available to install via NuGet once it is complete and test
 - [x] Client
 - [x] Milestone
 - [x] Person
-- [ ] Placeholder
+- [x] Placeholder
 - [x] Project
-- [ ] Subscription
+- [ ] Role

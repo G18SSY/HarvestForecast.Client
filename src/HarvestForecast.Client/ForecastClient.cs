@@ -99,6 +99,19 @@ public class ForecastClient : IForecastClient
            .ReturnNullIfNotFoundAsync();
     }
 
+    /// <inheritdoc />
+    public ValueTask<IReadOnlyCollection<Placeholder>> GetPlaceholderAsync()
+    {
+        return GetEntityAsync<IReadOnlyCollection<Placeholder>>( "placeholders", "placeholders" );
+    }
+
+    /// <inheritdoc />
+    public ValueTask<Placeholder?> GetPlaceholderAsync( int id )
+    {
+        return GetEntityAsync<Placeholder>( $"placeholders/{id}", "placeholder" )
+           .ReturnNullIfNotFoundAsync();
+    }
+
     /// <summary>
     ///     Adds authentication headers to a request. This is called before the request is sent and can be extended to add
     ///     additional headers in an overriding class.

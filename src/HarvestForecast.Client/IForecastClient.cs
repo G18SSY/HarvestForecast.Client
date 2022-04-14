@@ -64,4 +64,14 @@ public interface IForecastClient
     ///     Gets a single person or null if one is not found with that ID.
     /// </summary>
     ValueTask<Person?> GetPersonAsync( int id );
+    
+    /// <summary>
+    ///     Gets all of the placeholders.
+    /// </summary>
+    ValueTask<IReadOnlyCollection<Placeholder>> GetPlaceholderAsync();
+
+    /// <summary>
+    ///     Gets a single placeholder or null if one is not found with that ID.
+    /// </summary>
+    ValueTask<Placeholder?> GetPlaceholderAsync( int id );
 }
