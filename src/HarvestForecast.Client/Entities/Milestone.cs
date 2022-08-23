@@ -13,7 +13,7 @@ public record Milestone( [ property : JsonPropertyName( "id" ) ]
                          string Name,
                          [ property : JsonPropertyName( "date" ) ] 
                          [ property : JsonConverter( typeof( LocalDateOnlyConverter ) ) ]
-                         DateTime Date,
+                         DateOnly Date,
                          [ property : JsonPropertyName( "updated_at" ) ]
                          DateTimeOffset UpdatedAt ,
                          [ property : JsonPropertyName( "updated_by_id" ) ]

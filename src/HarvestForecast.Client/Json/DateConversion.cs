@@ -6,7 +6,7 @@ namespace HarvestForecast.Client.Json;
 
 internal static class DateConversion
 {
-    public static DateTime? Read( ref Utf8JsonReader reader )
+    public static DateOnly? Read( ref Utf8JsonReader reader )
     {
         string? raw = reader.GetString();
 
@@ -15,10 +15,10 @@ internal static class DateConversion
             return null;
         }
 
-        return DateTime.ParseExact( raw, DateUtility.DateOnlyFormat, CultureInfo.InvariantCulture, DateTimeStyles.AssumeLocal );
+        return DateOnly.ParseExact( raw, DateUtility.DateOnlyFormat, CultureInfo.InvariantCulture );
     }
 
-    public static void Write( Utf8JsonWriter writer, DateTime? value )
+    public static void Write( Utf8JsonWriter writer, DateOnly? value )
     {
         if ( value.HasValue )
         {
