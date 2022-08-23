@@ -23,10 +23,10 @@ public record Assignment( [ property : JsonPropertyName( "id" ) ]
                           int Id,
                           [ property : JsonPropertyName( "start_date" ) ]
                           [ property : JsonConverter( typeof( LocalNullableDateOnlyConverter ) ) ]
-                          DateTime? StartDate,
+                          DateOnly? StartDate,
                           [ property : JsonPropertyName( "end_date" ) ]
                           [ property : JsonConverter( typeof( LocalNullableDateOnlyConverter ) ) ]
-                          DateTime? EndDate,
+                          DateOnly? EndDate,
                           [ property : JsonPropertyName( "allocation" ) ]
                           [ property : JsonConverter( typeof( SecondsToNullableTimeSpanConverter ) ) ]
                           TimeSpan? Allocation,

@@ -7,7 +7,7 @@ namespace HarvestForecast.Client.Entities;
 /// <summary>
 ///     Filter options for querying <see cref="Assignment" />s.
 /// </summary>
-public record AssignmentFilter( DateTime StartDate, DateTime EndDate ) : DateRangeFilter( StartDate, EndDate )
+public record AssignmentFilter( DateOnly StartDate, DateOnly EndDate ) : DateRangeFilter( StartDate, EndDate )
 {
     /// <summary>
     ///     The ID of the project to filter assignments by.
@@ -34,7 +34,8 @@ public record AssignmentFilter( DateTime StartDate, DateTime EndDate ) : DateRan
     /// </summary>
     public static AssignmentFilter Today()
     {
-        return new AssignmentFilter( DateTime.Today, DateTime.Today );
+        var today = DateOnly.FromDateTime(DateTime.Today);
+        return new AssignmentFilter( today, today );
     }
 
     internal override IEnumerable<KeyValuePair<string, string?>> GetFilters()

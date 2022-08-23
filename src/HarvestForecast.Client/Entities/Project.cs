@@ -18,10 +18,10 @@ public record Project( [ property : JsonPropertyName( "id" ) ]
                        string Code,
                        [ property : JsonPropertyName( "start_date" ) ]
                        [ property : JsonConverter( typeof( LocalNullableDateOnlyConverter ) ) ]
-                       DateTime? StartDate,
+                       DateOnly? StartDate,
                        [ property : JsonPropertyName( "end_date" ) ]
                        [ property : JsonConverter( typeof( LocalNullableDateOnlyConverter ) ) ]
-                       DateTime? EndDate,
+                       DateOnly? EndDate,
                        [ property : JsonPropertyName( "notes" ) ]
                        string? Notes ,
                        [ property : JsonPropertyName( "harvest_id" ) ]

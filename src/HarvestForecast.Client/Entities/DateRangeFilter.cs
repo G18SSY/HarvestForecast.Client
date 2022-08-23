@@ -6,17 +6,17 @@ namespace HarvestForecast.Client.Entities;
 /// <summary>
 ///     A <see cref="FilterBase" /> implementation for filters that require a start and end date.
 /// </summary>
-public record DateRangeFilter( DateTime StartDate, DateTime EndDate ) : FilterBase
+public record DateRangeFilter( DateOnly StartDate, DateOnly EndDate ) : FilterBase
 {
     /// <summary>
     ///     The date to filter assignments from (inclusive).
     /// </summary>
-    public DateTime StartDate { get; } = StartDate;
+    public DateOnly StartDate { get; } = StartDate;
 
     /// <summary>
     ///     The date to filter assignments to (inclusive).
     /// </summary>
-    public DateTime EndDate { get; } = EndDate;
+    public DateOnly EndDate { get; } = EndDate;
 
     internal override IEnumerable<KeyValuePair<string, string?>> GetFilters()
     {

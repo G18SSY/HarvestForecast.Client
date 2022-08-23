@@ -22,8 +22,8 @@ public class AssignmentTests
 
         var first = assignments.First();
         Assert.Equal( 1000001, first.Id );
-        Assert.Equal( new DateTime( 2017, 05, 24 ), first.StartDate );
-        Assert.Equal( new DateTime( 2017, 05, 29 ), first.EndDate );
+        Assert.Equal( new DateOnly( 2017, 05, 24 ), first.StartDate );
+        Assert.Equal( new DateOnly( 2017, 05, 29 ), first.EndDate );
         Assert.Null( first.Allocation );
         Assert.Null( first.Notes );
         Assert.Equal( DateTime.Parse( "2017-05-02T19:07:00.478Z" ), first.UpdatedAt );
@@ -37,7 +37,7 @@ public class AssignmentTests
     [ Fact ]
     public void CanFilterByDates()
     {
-        var today = DateTime.Today;
+        var today = DateOnly.FromDateTime(DateTime.Today);
 
         var filter = new AssignmentFilter( today, today );
         var filters = filter.GetActiveFilters().ToList();
@@ -51,7 +51,7 @@ public class AssignmentTests
     [ Fact ]
     public void CanFilterByProjectId()
     {
-        var today = DateTime.Today;
+        var today = DateOnly.FromDateTime(DateTime.Today);
         const int projectId = 567823;
         
         var filter = new AssignmentFilter( today, today )
@@ -67,7 +67,7 @@ public class AssignmentTests
     [ Fact ]
     public void CanFilterByPersonId()
     {
-        var today = DateTime.Today;
+        var today = DateOnly.FromDateTime(DateTime.Today);
         const int personId = 564523;
         
         var filter = new AssignmentFilter( today, today )
@@ -83,7 +83,7 @@ public class AssignmentTests
     [ Fact ]
     public void CanFilterByRepeatedAssignmentSetId()
     {
-        var today = DateTime.Today;
+        var today = DateOnly.FromDateTime(DateTime.Today);
         const int repeatedAssignmentSetId = 23;
         
         var filter = new AssignmentFilter( today, today )
@@ -99,7 +99,7 @@ public class AssignmentTests
     [ Fact ]
     public void CanFilterByState()
     {
-        var today = DateTime.Today;
+        var today = DateOnly.FromDateTime(DateTime.Today);
         
         var filter = new AssignmentFilter( today, today )
         {

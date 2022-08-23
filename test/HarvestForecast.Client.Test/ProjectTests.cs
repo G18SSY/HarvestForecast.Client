@@ -24,8 +24,8 @@ public class ProjectTests
         Assert.Equal( "black", first.Color );
         Assert.Null( first.Code );
         Assert.Null( first.Notes );
-        Assert.Equal( new DateTime( 2017, 01, 05 ), first.StartDate );
-        Assert.Equal( new DateTime( 2018, 02, 23 ), first.EndDate );
+        Assert.Equal( new DateOnly( 2017, 01, 05 ), first.StartDate );
+        Assert.Equal( new DateOnly( 2018, 02, 23 ), first.EndDate );
         Assert.Null( first.HarvestId );
         Assert.False( first.Archived );
         Assert.Equal( DateTime.Parse( "2017-10-13T20:49:36.418Z" ), first.UpdatedAt );

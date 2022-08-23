@@ -94,10 +94,11 @@ public static class Program
                                             .Distinct()
                                             .Select( p => client.GetMilestonesAsync( new MilestoneFilter {ProjectId = p} ).AsTask() );
 
-            var milestoneLimit = DateTime.Today + TimeSpan.FromDays( 14 );
+            var today = DateOnly.FromDateTime(DateTime.Today);
+            var milestoneLimit = today.AddDays(14);
             var milestones = ( await Task.WhenAll( milestoneTasks ) )
                             .SelectMany( m => m )
-                            .Where( m => m.Date >= DateTime.Today && m.Date <= milestoneLimit )
+                            .Where( m => m.Date >= today && m.Date <= milestoneLimit )
                             .ToList();
 
             if ( milestones.Any() )
