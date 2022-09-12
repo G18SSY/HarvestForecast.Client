@@ -6,15 +6,15 @@ using HarvestForecast.Client.Json;
 namespace HarvestForecast.Client.Entities;
 
 /// <summary>
-///     An project is a group of work items for a specific <see cref="Client"/>.
+///     An project is a group of work items for a specific <see cref="Client" />.
 /// </summary>
-public record Project( [ property : JsonPropertyName( "id" ) ] 
+public record Project( [ property : JsonPropertyName( "id" ) ]
                        int Id,
-                       [ property : JsonPropertyName( "name" ) ] 
+                       [ property : JsonPropertyName( "name" ) ]
                        string Name,
-                       [ property : JsonPropertyName( "color" ) ] 
+                       [ property : JsonPropertyName( "color" ) ]
                        string Color,
-                       [ property : JsonPropertyName( "code" ) ] 
+                       [ property : JsonPropertyName( "code" ) ]
                        string Code,
                        [ property : JsonPropertyName( "start_date" ) ]
                        [ property : JsonConverter( typeof( LocalNullableDateOnlyConverter ) ) ]
@@ -23,15 +23,15 @@ public record Project( [ property : JsonPropertyName( "id" ) ]
                        [ property : JsonConverter( typeof( LocalNullableDateOnlyConverter ) ) ]
                        DateOnly? EndDate,
                        [ property : JsonPropertyName( "notes" ) ]
-                       string? Notes ,
+                       string? Notes,
                        [ property : JsonPropertyName( "harvest_id" ) ]
                        int? HarvestId,
                        [ property : JsonPropertyName( "archived" ) ]
                        bool Archived,
                        [ property : JsonPropertyName( "updated_at" ) ]
-                       DateTimeOffset UpdatedAt ,
+                       DateTimeOffset UpdatedAt,
                        [ property : JsonPropertyName( "updated_by_id" ) ]
-                       int UpdatedById ,
+                       int? UpdatedById,
                        [ property : JsonPropertyName( "client_id" ) ]
                        int? ClientId,
                        [ property : JsonPropertyName( "tags" ) ]

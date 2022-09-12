@@ -7,16 +7,16 @@ namespace HarvestForecast.Client.Entities;
 /// <summary>
 ///     An dated project event.
 /// </summary>
-public record Milestone( [ property : JsonPropertyName( "id" ) ] 
+public record Milestone( [ property : JsonPropertyName( "id" ) ]
                          int Id,
-                         [ property : JsonPropertyName( "name" ) ] 
+                         [ property : JsonPropertyName( "name" ) ]
                          string Name,
-                         [ property : JsonPropertyName( "date" ) ] 
+                         [ property : JsonPropertyName( "date" ) ]
                          [ property : JsonConverter( typeof( LocalDateOnlyConverter ) ) ]
                          DateOnly Date,
                          [ property : JsonPropertyName( "updated_at" ) ]
-                         DateTimeOffset UpdatedAt ,
+                         DateTimeOffset UpdatedAt,
                          [ property : JsonPropertyName( "updated_by_id" ) ]
-                         int UpdatedById ,
+                         int? UpdatedById,
                          [ property : JsonPropertyName( "project_id" ) ]
-                         int ProjectId);
+                         int ProjectId );

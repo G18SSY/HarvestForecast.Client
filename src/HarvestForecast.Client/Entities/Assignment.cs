@@ -19,7 +19,7 @@ namespace HarvestForecast.Client.Entities;
 /// <param name="PlaceholderId">The ID of the <see cref="Placeholder" /> this is assigned to.</param>
 /// <param name="RepeatedAssignmentSetId">The ID of the repeating assignment this is from.</param>
 /// <param name="ActiveOnDaysOff">Indicates if the assignment continues during non-working days.</param>
-public record Assignment( [ property : JsonPropertyName( "id" ) ] 
+public record Assignment( [ property : JsonPropertyName( "id" ) ]
                           int Id,
                           [ property : JsonPropertyName( "start_date" ) ]
                           [ property : JsonConverter( typeof( LocalNullableDateOnlyConverter ) ) ]
@@ -31,17 +31,17 @@ public record Assignment( [ property : JsonPropertyName( "id" ) ]
                           [ property : JsonConverter( typeof( SecondsToNullableTimeSpanConverter ) ) ]
                           TimeSpan? Allocation,
                           [ property : JsonPropertyName( "notes" ) ]
-                          string? Notes ,
+                          string? Notes,
                           [ property : JsonPropertyName( "updated_at" ) ]
-                          DateTimeOffset UpdatedAt ,
+                          DateTimeOffset UpdatedAt,
                           [ property : JsonPropertyName( "updated_by_id" ) ]
-                          int UpdatedById ,
+                          int? UpdatedById,
                           [ property : JsonPropertyName( "project_id" ) ]
-                          int ProjectId ,
+                          int ProjectId,
                           [ property : JsonPropertyName( "person_id" ) ]
-                          int? PersonId ,
+                          int? PersonId,
                           [ property : JsonPropertyName( "placeholder_id" ) ]
-                          int? PlaceholderId ,
+                          int? PlaceholderId,
                           [ property : JsonPropertyName( "repeated_assignment_set_id" ) ]
                           int? RepeatedAssignmentSetId,
                           [ property : JsonPropertyName( "active_on_days_off" ) ]
