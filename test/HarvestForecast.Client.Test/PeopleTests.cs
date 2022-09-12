@@ -28,7 +28,7 @@ public class PeopleTests
         Assert.False( first.Archived );
         Assert.True( first.Subscribed );
         Assert.Equal( DateTime.Parse( "2017-09-28T23:23:51.111Z" ), first.UpdatedAt );
-        Assert.Equal( 111111, first.UpdatedById );
+        Assert.Null( first.UpdatedById );
         Assert.Equal( new WorkingDays( new[] {DayOfWeek.Monday, DayOfWeek.Wednesday, DayOfWeek.Thursday, DayOfWeek.Friday} ), first.WorkingDays );
     }
 
