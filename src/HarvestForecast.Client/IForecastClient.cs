@@ -26,6 +26,25 @@ public interface IForecastClient
     ValueTask<IReadOnlyCollection<Assignment>> GetAssignmentsAsync( AssignmentFilter filter );
 
     /// <summary>
+    ///     Creates a new assignment.
+    /// </summary>
+    /// <param name="assignment">The assignment to create.</param>
+    ValueTask<Assignment> CreateAssignmentAsync( AssignmentData assignment );
+
+    /// <summary>
+    ///     Update an existing assignment.
+    /// </summary>
+    /// <param name="id">The ID of the assignment to update.</param>
+    /// <param name="assignment">The assignment data to update with.</param>
+    ValueTask<Assignment> UpdateAssignmentAsync( int id, AssignmentData assignment );
+
+    /// <summary>
+    ///     Remove an existing assignment.
+    /// </summary>
+    /// <param name="id">The ID of the assignment to remove.</param>
+    ValueTask<bool> RemoveAssignmentAsync( int id );
+
+    /// <summary>
     ///     Gets all of the projects.
     /// </summary>
     ValueTask<IReadOnlyCollection<Project>> GetProjectsAsync();

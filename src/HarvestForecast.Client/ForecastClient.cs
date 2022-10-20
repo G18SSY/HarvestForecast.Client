@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text.Json;
 using System.Threading.Tasks;
 using HarvestForecast.Client.Entities;
 
@@ -46,6 +46,24 @@ public class ForecastClient : IForecastClient
     public ValueTask<IReadOnlyCollection<Assignment>> GetAssignmentsAsync( AssignmentFilter filter )
     {
         return GetEntityAsync<IReadOnlyCollection<Assignment>>( "assignments", "assignments", filter );
+    }
+
+    /// <inheritdoc />
+    public ValueTask<Assignment> CreateAssignmentAsync(AssignmentData assignment)
+    {
+        return CreateEntityAsync<AssignmentData, Assignment>("assignments", "assignment", assignment);
+    }
+
+    /// <inheritdoc />
+    public ValueTask<Assignment> UpdateAssignmentAsync(int id, AssignmentData assignment)
+    {
+        return UpdateEntityAsync<AssignmentData, Assignment>("assignments", "assignment", id, assignment);
+    }
+
+    /// <inheritdoc />
+    public ValueTask<bool> RemoveAssignmentAsync(int id)
+    {
+        return RemoveEntityAsync("assignments", id);
     }
 
     /// <inheritdoc />
@@ -137,12 +155,15 @@ public class ForecastClient : IForecastClient
         return new ValueTask();
     }
 
-    private static HttpRequestMessage GetRequestMessage( string subPath )
+    private async ValueTask<HttpRequestMessage> CreateRequestAsync(string subPath, HttpMethod method)
     {
-        string path = BaseUrl + "/" + subPath;
-        var uri = new Uri( path, UriKind.Absolute );
+        var path = BaseUrl + "/" + subPath;
+        var uri = new Uri(path, UriKind.Absolute);
 
-        return new HttpRequestMessage( HttpMethod.Get, uri );
+        var request = new HttpRequestMessage(method, uri);
+        await AuthenticateRequest( request );
+
+        return request;
     }
 
     private async ValueTask<T> GetEntityAsync<T>( string subPath, string containerPropertyName, FilterBase? filter = null )
@@ -157,9 +178,47 @@ public class ForecastClient : IForecastClient
             }
         }
 
-        var request = GetRequestMessage( subPath );
-        await AuthenticateRequest( request );
+        var request = await CreateRequestAsync( subPath, HttpMethod.Get );
+        var response = await SendRequestAsync(request);
 
+        return await NestedJsonHelper.UnwrapNestedJsonContentAsync<T>(response.Content, containerPropertyName);
+    }
+
+    private async ValueTask<TResponse> CreateEntityAsync<TData, TResponse>( string subPath, string containerPropertyName, TData data)
+    {
+        var request = await CreateRequestAsync( subPath, HttpMethod.Post );
+        request.Content = NestedJsonHelper.CreateNestedJsonContent(data, containerPropertyName);
+        var response = await SendRequestAsync(request);
+
+        return await NestedJsonHelper.UnwrapNestedJsonContentAsync<TResponse>(response.Content, containerPropertyName);
+    }
+
+    private async ValueTask<TResponse> UpdateEntityAsync<TData, TResponse>( string subPath, string containerPropertyName, int id, TData data)
+    {
+        var request = await CreateRequestAsync($"{subPath}/{id}", HttpMethod.Put );
+        request.Content = NestedJsonHelper.CreateNestedJsonContent(data, containerPropertyName);
+        var response = await SendRequestAsync(request);
+
+        return await NestedJsonHelper.UnwrapNestedJsonContentAsync<TResponse>(response.Content, containerPropertyName);
+    }
+
+    private async ValueTask<bool> RemoveEntityAsync( string subPath, int id )
+    {
+        var request = await CreateRequestAsync( $"{subPath}/{id}", HttpMethod.Delete );
+        try
+        {
+            var response = await SendRequestAsync(request);
+            Debug.Assert(response.StatusCode == HttpStatusCode.NoContent);
+            return true;
+        }
+        catch (NotFoundException)
+        {
+            return false;
+        }
+    }
+
+    private async ValueTask<HttpResponseMessage> SendRequestAsync(HttpRequestMessage request)
+    {
         var response = await httpClient.SendAsync( request );
 
         // Throw a special exception for 404 so we can filter out these results
@@ -169,16 +228,7 @@ public class ForecastClient : IForecastClient
         }
 
         response.EnsureSuccessStatusCode();
-
-        using var content = await response.Content.ReadAsStreamAsync();
-        var document = await JsonDocument.ParseAsync( content );
-        var entity = document.RootElement.GetProperty( containerPropertyName ).Deserialize<T>();
-
-        if ( entity is null )
-        {
-            throw new InvalidOperationException( "Unable to deserialize response" );
-        }
-
-        return entity;
+        
+        return response;
     }
 }
