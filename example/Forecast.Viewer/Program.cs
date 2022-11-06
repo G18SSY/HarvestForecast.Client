@@ -11,7 +11,7 @@ namespace Forecast.Viewer;
 
 public static class Program
 {
-    private static readonly IMemoryCache Cache = new MemoryCache( new MemoryCacheOptions() );
+    private static readonly IMemoryCache cache = new MemoryCache( new MemoryCacheOptions() );
 
     public static async Task Main()
     {
@@ -162,14 +162,14 @@ public static class Program
     {
         string key = $"client:{id}";
 
-        return await Cache.GetOrCreateAsync( key, async _ => await forecastClient.GetClientAsync( id ) ) ?? throw new InvalidOperationException( "Failed to fetch the specified client" );
+        return await cache.GetOrCreateAsync( key, async _ => await forecastClient.GetClientAsync( id ) ) ?? throw new InvalidOperationException( "Failed to fetch the specified client" );
     }
 
     private static async ValueTask<Project> GetProjectAsync( IForecastClient forecastClient, int id )
     {
         string key = $"project:{id}";
 
-        return await Cache.GetOrCreateAsync( key, async _ => await forecastClient.GetProjectAsync( id ) ) ?? throw new InvalidOperationException( "Failed to fetch the specified client" );
+        return await cache.GetOrCreateAsync( key, async _ => await forecastClient.GetProjectAsync( id ) ) ?? throw new InvalidOperationException( "Failed to fetch the specified client" );
     }
 
     private static async ValueTask<T> WrapWithAnsiStatus<T>( this ValueTask<T> task, string status )

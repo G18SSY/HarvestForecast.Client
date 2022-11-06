@@ -18,7 +18,7 @@ public abstract record FilterBase
             collection.Add( pair.Key, pair.Value );
         }
 
-        return collection.ToString();
+        return collection.ToString() ?? string.Empty;
     }
 
     /// <summary>
