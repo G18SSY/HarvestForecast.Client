@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.Json.Serialization;
+using HarvestForecast.Client.Entities.VO;
 using HarvestForecast.Client.Json;
 
 namespace HarvestForecast.Client.Entities;
@@ -27,13 +28,13 @@ public record AssignmentData([property: JsonPropertyName("start_date")]
     TimeSpan? Allocation,
     [property: JsonPropertyName("notes")] string? Notes,
     [property: JsonPropertyName("project_id")]
-    int ProjectId,
+    ForecastProjectId ProjectId,
     [property: JsonPropertyName("person_id")]
-    int? PersonId,
+    ForecastPersonId? PersonId,
     [property: JsonPropertyName("placeholder_id")]
-    int? PlaceholderId,
+    ForecastPlaceholderId? PlaceholderId,
     [property: JsonPropertyName("repeated_assignment_set_id")]
-    int? RepeatedAssignmentSetId,
+    ForecastRepeatedAssignmentSetId? RepeatedAssignmentSetId,
     [property: JsonPropertyName("active_on_days_off")]
     bool ActiveOnDaysOff);
 
@@ -52,7 +53,7 @@ public record AssignmentData([property: JsonPropertyName("start_date")]
 /// <param name="PlaceholderId">The ID of the <see cref="Placeholder" /> this is assigned to.</param>
 /// <param name="RepeatedAssignmentSetId">The ID of the repeating assignment this is from.</param>
 /// <param name="ActiveOnDaysOff">Indicates if the assignment continues during non-working days.</param>
-public record Assignment([property: JsonPropertyName("id")] int Id,
+public record Assignment([property: JsonPropertyName("id")] ForecastAssignmentId Id,
     DateOnly? StartDate,
     DateOnly? EndDate,
     TimeSpan? Allocation,
@@ -61,10 +62,10 @@ public record Assignment([property: JsonPropertyName("id")] int Id,
     DateTimeOffset UpdatedAt,
     [property: JsonPropertyName("updated_by_id")]
     int? UpdatedById,
-    int ProjectId,
-    int? PersonId,
-    int? PlaceholderId,
-    int? RepeatedAssignmentSetId,
+    ForecastProjectId ProjectId,
+    ForecastPersonId? PersonId,
+    ForecastPlaceholderId? PlaceholderId,
+    ForecastRepeatedAssignmentSetId? RepeatedAssignmentSetId,
     bool ActiveOnDaysOff) : AssignmentData(StartDate,
     EndDate,
     Allocation,

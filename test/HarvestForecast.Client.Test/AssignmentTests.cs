@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using FluentAssertions;
 using HarvestForecast.Client.Entities;
+using HarvestForecast.Client.Entities.VO;
 using RichardSzalay.MockHttp;
 using Xunit;
 
@@ -24,15 +25,15 @@ public class AssignmentTests
         Assert.NotEmpty(assignments);
 
         var first = assignments.First();
-        Assert.Equal(1000001, first.Id);
+        Assert.Equal(ForecastAssignmentId.From(1000001), first.Id);
         Assert.Equal(new DateOnly(2017, 05, 24), first.StartDate);
         Assert.Equal(new DateOnly(2017, 05, 29), first.EndDate);
         Assert.Null(first.Allocation);
         Assert.Null(first.Notes);
         Assert.Equal(DateTime.Parse("2017-05-02T19:07:00.478Z"), first.UpdatedAt);
         Assert.Equal(111111, first.UpdatedById);
-        Assert.Equal(222222, first.ProjectId);
-        Assert.Equal(333333, first.PersonId);
+        Assert.Equal(ForecastProjectId.From(222222), first.ProjectId);
+        Assert.Equal(ForecastPersonId.From(333333), first.PersonId);
         Assert.Null(first.PlaceholderId);
         Assert.Null(first.RepeatedAssignmentSetId);
     }
@@ -45,7 +46,7 @@ public class AssignmentTests
         var filter = new AssignmentFilter(today, today);
         var filters = filter.GetActiveFilters().ToList();
 
-        string todayFormatted = DateUtility.FormatDateOnly(today);
+        var todayFormatted = DateUtility.FormatDateOnly(today);
         Assert.Equal(2, filters.Count);
         Assert.Contains(new KeyValuePair<string, string>("start_date", todayFormatted), filters);
         Assert.Contains(new KeyValuePair<string, string>("end_date", todayFormatted), filters);
@@ -59,7 +60,7 @@ public class AssignmentTests
 
         var filter = new AssignmentFilter(today, today)
         {
-            ProjectId = projectId
+            ProjectId = ForecastProjectId.From(projectId)
         };
         var filters = filter.GetActiveFilters().ToList();
 
@@ -75,7 +76,7 @@ public class AssignmentTests
 
         var filter = new AssignmentFilter(today, today)
         {
-            PersonId = personId
+            PersonId = ForecastPersonId.From(personId)
         };
         var filters = filter.GetActiveFilters().ToList();
 
@@ -91,7 +92,7 @@ public class AssignmentTests
 
         var filter = new AssignmentFilter(today, today)
         {
-            RepeatedAssignmentSetId = repeatedAssignmentSetId
+            RepeatedAssignmentSetId = ForecastRepeatedAssignmentSetId.From(repeatedAssignmentSetId)
         };
         var filters = filter.GetActiveFilters().ToList();
 
@@ -138,7 +139,7 @@ public class AssignmentTests
         var created = await client.CreateAssignmentAsync(data);
 
         handler.VerifyNoOutstandingExpectation();
-        created.Id.Should().Be(1000001);
+        created.Id.Should().Be(ForecastAssignmentId.From(1000001));
     }
 
     [Fact]
@@ -152,7 +153,7 @@ public class AssignmentTests
         IForecastClient client = new ForecastClient(httpClient, ApiTestHelper.TestOptions);
 
         var data = MockAssignmentData();
-        var created = await client.UpdateAssignmentAsync(id, data);
+        var created = await client.UpdateAssignmentAsync(ForecastAssignmentId.From(id), data);
 
         handler.VerifyNoOutstandingExpectation();
         created.Should().NotBeNull();
@@ -170,8 +171,8 @@ public class AssignmentTests
         var httpClient = handler.ToHttpClient();
         IForecastClient client = new ForecastClient(httpClient, ApiTestHelper.TestOptions);
 
-        var deleted1 = await client.RemoveAssignmentAsync(id);
-        var deleted2 = await client.RemoveAssignmentAsync(id);
+        var deleted1 = await client.RemoveAssignmentAsync(ForecastAssignmentId.From(id));
+        var deleted2 = await client.RemoveAssignmentAsync(ForecastAssignmentId.From(id));
 
         handler.VerifyNoOutstandingExpectation();
         deleted1.Should().BeTrue();
@@ -183,8 +184,8 @@ public class AssignmentTests
             DateOnly.Parse("2017-05-29"),
             null,
             null,
-            222222,
-            333333,
+            ForecastProjectId.From(222222),
+            ForecastPersonId.From(333333),
             null,
             null,
             true);
