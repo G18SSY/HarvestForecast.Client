@@ -4,6 +4,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using FluentAssertions;
 using HarvestForecast.Client.Entities;
+using HarvestForecast.Client.Entities.VO;
 using Xunit;
 
 namespace HarvestForecast.Client.Test;
@@ -13,15 +14,15 @@ public class JsonTests
     [Fact]
     public async Task WritesValidNestedJsonBasedOnGenericType()
     {
-        var assignment = new Assignment(12234,
+        var assignment = new Assignment(ForecastAssignmentId.From(12234),
             null,
             new DateOnly(1066, 6, 2),
             TimeSpan.FromHours(2),
             "ABC",
             DateTimeOffset.UtcNow,
             null,
-            67890,
-            45789,
+            ForecastProjectId.From(67890),
+            ForecastPersonId.From(45789),
             null,
             null,
             true);
@@ -40,7 +41,7 @@ public class JsonTests
         var properties = rootChild.Value.EnumerateObject().ToList();
 
         ShouldContain("notes", e => e.GetString().Should().Be(assignment.Notes));
-        ShouldContain("person_id", e => e.GetInt32().Should().Be(assignment.PersonId));
+        ShouldContain("person_id", e => ForecastPersonId.From(e.GetInt32()).Should().Be(assignment.PersonId));
         ShouldContain("active_on_days_off", e => e.GetBoolean().Should().Be(assignment.ActiveOnDaysOff));
         ShouldNotContain("id");
         ShouldNotContain("updated_at");

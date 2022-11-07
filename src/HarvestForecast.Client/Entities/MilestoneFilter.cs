@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Globalization;
+using HarvestForecast.Client.Entities.VO;
 
 namespace HarvestForecast.Client.Entities;
 
@@ -16,10 +17,11 @@ public record MilestoneFilter : FilterBase
     /// <summary>
     ///     The ID of the project to filter assignments by.
     /// </summary>
-    public int? ProjectId { get; init; }
+    public ForecastProjectId? ProjectId { get; init; }
 
     internal override IEnumerable<KeyValuePair<string, string?>> GetFilters()
     {
-        yield return new KeyValuePair<string, string?>( "project_id", ProjectId?.ToString( CultureInfo.InvariantCulture ) );
+        yield return new KeyValuePair<string, string?>("project_id",
+            ProjectId?.Value.ToString(CultureInfo.InvariantCulture));
     }
 }

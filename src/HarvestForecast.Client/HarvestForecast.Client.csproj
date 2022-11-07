@@ -6,7 +6,7 @@
         <LangVersion>10</LangVersion>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
-    
+
     <PropertyGroup>
         <PackageId>HarvestForecast.Client</PackageId>
         <Authors>Brad Glass</Authors>
@@ -19,10 +19,10 @@
             <_Parameter1>HarvestForecast.Client.Test</_Parameter1>
         </AssemblyAttribute>
     </ItemGroup>
-    
+
     <ItemGroup>
-      <PackageReference Include="System.Text.Json" Version="6.0.3" />
-      <PackageReference Include="Vogen" Version="3.0.3" />
+        <PackageReference Include="System.Text.Json" Version="6.0.3"/>
+        <PackageReference Include="Vogen" Version="3.0.4"/>
     </ItemGroup>
 
 </Project>
